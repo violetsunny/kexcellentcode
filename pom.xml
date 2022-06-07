@@ -25,8 +25,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
         <kdla.framework.version>1.0.0-SNAPSHOT</kdla.framework.version>
-        <jpinyin.version>1.1.3</jpinyin.version>
-        <disruptor.version>3.4.2</disruptor.version>
         <junit.version>4.13.1</junit.version>
     </properties>
 
@@ -127,23 +125,18 @@
                 <version>${spring.boot.version}</version>
             </dependency>
 
-            <!-- 日志 -->
-
-
-            <!-- 工具包 -->
-            <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
             <dependency>
-                <groupId>com.lmax</groupId>
-                <artifactId>disruptor</artifactId>
-                <version>${disruptor.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
 
-            <!--汉字转拼音-->
             <dependency>
-                <groupId>com.github.stuxuhai</groupId>
-                <artifactId>jpinyin</artifactId>
-                <version>${jpinyin.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
+
 
             <!-- 测试包 -->
             <dependency>
