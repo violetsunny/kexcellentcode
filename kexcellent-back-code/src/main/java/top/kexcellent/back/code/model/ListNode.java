@@ -13,19 +13,28 @@ public class ListNode {
 
     private ListNode next;
 
-    public int getValue() {
-        return value;
+    public ListNode(){}
+
+    public ListNode(int value){
+        super();
+        this.value=value;
     }
 
-    public void setValue(int value) {
+    public int getValue() {
+        return this.value;
+    }
+
+    public ListNode setValue(int value) {
         this.value = value;
+        return this;
     }
 
     public ListNode getNext() {
-        return next;
+        return this.next;
     }
 
-    public void setNext(ListNode next) {
+    public ListNode setNext(ListNode next) {
         this.next = next;
+        return this;
     }
 }
