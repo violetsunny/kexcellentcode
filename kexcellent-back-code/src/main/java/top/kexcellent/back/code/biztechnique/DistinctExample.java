@@ -6,10 +6,9 @@ package top.kexcellent.back.code.biztechnique;
 
 import top.kexcellent.back.code.model.Person;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
@@ -28,6 +27,19 @@ public class DistinctExample {
                 collectingAndThen(
                         toCollection(() -> new TreeSet<>(Comparator.comparing(Person::getCode))), ArrayList::new)
         );
+    }
+
+    private void example2(Map<String,String> phone,Set<String> setKey){
+
+        Map<String, String> phoneName = phone.entrySet().stream().filter(entry -> setKey.contains(entry.getKey())).collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (a,b) -> a
+        ));
+    }
+
+    private void sort(List<Person> personList){
+        personList.sort(Comparator.comparing(d->d.getTime().getTime(),Comparator.reverseOrder()));
     }
 
 }

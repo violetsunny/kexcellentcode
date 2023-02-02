@@ -6,6 +6,8 @@ package top.kexcellent.back.code.model;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 示例模型-人
  *
@@ -24,5 +26,7 @@ public class Person {
     private Integer age;
 
     private Integer sex;
+
+    private Date time;
 
 }

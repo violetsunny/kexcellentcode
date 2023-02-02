@@ -6,6 +6,9 @@ package top.kexcellent.back.code.biztechnique;
 
 import top.kexcellent.back.code.model.ListNode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author kanglele01
  * @version $Id: PalindRome, v 0.1 2021/3/10 15:01 kanglele01 Exp $
@@ -121,40 +124,73 @@ public class Solution {
         return 0;
     }
 
-    /**
-     * 给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
-     *
-     * 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
-     * @param l1
-     * @param l2
-     * @return
-     */
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode pre = new ListNode(0);
-        ListNode cur = pre;
-        int carry = 0;
-        while(l1 != null || l2 != null) {
-            int x = l1 == null ? 0 : l1.getValue();
-            int y = l2 == null ? 0 : l2.getValue();
-            int sum = x + y + carry;
-            carry = sum / 10;
-            sum = sum % 10;
-            cur.setNext(new ListNode(sum));
-            cur = cur.getNext();
-            if(l1 != null)
-                l1 = l1.getNext();
-            if(l2 != null)
-                l2 = l2.getNext();
+    public static int lengthOfLongestSubstring(String s) {
+        int p_len = s.length();
+        if(p_len==0){
+            return 0;
         }
-        if(carry == 1) {
-            cur.setNext(new ListNode(carry));
+        if(p_len==1){
+            return 1;
         }
-        return pre.getNext();
+        int i = 0;
+        int j = 1;
+        int x = 1;
+        int y = 0;
+        char[] chars = s.toCharArray();
+        Set<Character> set = new HashSet<>();
+
+        while (i < p_len && j < p_len) {
+            if(!set.contains(chars[j])){
+                set.add(chars[j]);
+                j++;
+                x++;
+            } else {
+                set.clear();
+                x = 1;
+                i++;
+                j=i+1;
+            }
+            y = Math.max(x,y);
+        }
+        return y;
     }
 
+    public static int lengthOfLongestSubstring_1(String s){
+        int n = s.length();
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return 1;
+        }
+        // 初始化128个字符的值为-1
+        int[] last = new int[128];
+        for(int i = 0; i < 128; i++) {
+            last[i] = -1;
+        }
+
+        int res = 0;
+        int start = 0; // 窗口开始位置
+        for(int i = 0; i < n; i++) {
+            //转成字符的ASCII码
+            int index = s.charAt(i);
+            //由于初始值为-1，只有遇到相同的字符才会移动窗口位置
+            start = Math.max(start, last[index] + 1);
+            //i-start + 1可以得到当前不同字符串的长度
+            res   = Math.max(res, i - start + 1);
+            //记录字符上一次出现的位置
+            last[index] = i;
+        }
+
+        return res;
+    }
+
+
+
     public static void main(String[] args) {
-        String res = palindrome_1("aacxycabaabb");
+        int res = lengthOfLongestSubstring("abcdabceabcaea");
         System.out.println(res);
+
     }
 
 

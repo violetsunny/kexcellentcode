@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<!-- 请将此处的'infra.test-elk'替换为当前系统的appid -->
+		<Property name="APP_ID" value="backend.llkang-service" />
+		<Property name="LOG_PATH" value="/data/logs/${APP_ID}" />
+		<Property name="LOG_PATTERN"
+			value="%d{yyyy-MM-dd HH:mm:ss.SSS} %p %c [%t]: ${APP_ID} [%X{traceId}] %msg %ex{separator(|)}%n" />
+	</Properties>
+
+	<Appenders>			   
+		<catAppender name="catAppender"/>
+		<console name="Console" target="SYSTEM_OUT">
+			<!--输出日志的格式 -->
+			<PatternLayout
+				pattern="[%d{HH:mm:ss:SSS}] [%p] [%X{traceId}]- %l - %m%n" />
+		</console>
+		<RollingFile name="RollingFile"
+			fileName="${LOG_PATH}/app.log"
+			filePattern="${LOG_PATH}/app-%d{yyyyMMdd}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="1GB" />
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_PATH}" maxDepth="1">
+					<IfFileName glob="app-*.log.gz" />
+					<IfAccumulatedFileCount exceeds="14" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+
+		<logger name="java.sql.PreparedStatement" level="debug"
+			additivity="true">
+			<AppenderRef ref="Console" />
+		</logger>
+		<logger name="cn.oyo.ota.mapper" level="debug"
+			additivity="false">
+			<AppenderRef ref="Console" />
+		</logger>
+
+		<AsyncRoot level="info">
+			<AppenderRef ref="RollingFile" />
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="catAppender" />
+		</AsyncRoot>
+           
+	</Loggers>
+
+</Configuration>
