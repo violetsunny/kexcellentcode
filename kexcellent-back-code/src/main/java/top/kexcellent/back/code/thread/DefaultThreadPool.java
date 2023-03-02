@@ -5,9 +5,11 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class DefaultThreadPool {
+
 	private static final ThreadPoolExecutor EXECUTOR = new ThreadPoolExecutor(5, 10, 2000, TimeUnit.MILLISECONDS,
 			new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.AbortPolicy());
 
+	//静态内部类写单例
 	private static final class DefaultThreadPoolThreadPoolHolder {
 		private static final DefaultThreadPool INSTANCE = new DefaultThreadPool();
 	}

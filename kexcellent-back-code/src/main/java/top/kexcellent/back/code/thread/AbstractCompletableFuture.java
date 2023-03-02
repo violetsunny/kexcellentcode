@@ -6,17 +6,13 @@ package top.kexcellent.back.code.thread;
 
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import top.kdla.framework.common.utils.DateUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.function.Consumer;
 
 /**
  * @author kll49556
@@ -41,13 +37,13 @@ public abstract class AbstractCompletableFuture<T,E> {
                         if(null != v){
                             resultList.add(v);//收集返回值
                         }
-                        log.info(logs + "【执行】>>>" + ",result=" + JSON.toJSONString(v) + ",异常=" + ExceptionUtils.getFullStackTrace(e)+",执行时间=" + DateUtils.format(new Date()));
+                        log.info(logs + "【执行】>>>" + ",result=" + JSON.toJSONString(v) + ",异常=" + ExceptionUtils.getMessage(e)+",执行时间=" + System.currentTimeMillis());
                     }))
                     .toArray(CompletableFuture[]::new);
             CompletableFuture.allOf(cfs).join();
             log.info(logs + "【执行结束】>>>" + ",入参=" + JSON.toJSONString(taskList) + ",返回=" + JSON.toJSONString(resultList)+",耗时=" + (System.currentTimeMillis() - start));
         } catch (Exception e) {
-            log.error(logs + "【执行异常】>>>" + ",入参=" + JSON.toJSONString(taskList) + ",异常=" + ExceptionUtils.getFullStackTrace(e));
+            log.error(logs + "【执行异常】>>>" + ",入参=" + JSON.toJSONString(taskList) + ",异常=" + ExceptionUtils.getMessage(e));
         }
         return resultList;
     }

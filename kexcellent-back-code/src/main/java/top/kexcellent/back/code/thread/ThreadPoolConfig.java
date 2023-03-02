@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 枚举写单例
  * @author kanglele01
  * @version $Id: ThreadPoolConfig, v 0.1 2020/4/29 15:38 kanglele01 Exp $
  */

@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- *
+ * 枚举写单例
  * Executors
  * @author kll49556
  * @version $Id: ExecutorFactory, v 0.1 2018/9/11 9:33 kll49556 Exp $
