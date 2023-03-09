@@ -14,7 +14,7 @@
 
     <parent>
         <groupId>top.kdla.framework</groupId>
-        <artifactId>kdla</artifactId>
+        <artifactId>kdla-components</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -76,43 +76,43 @@
             <!-- kdla组件 begin -->
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-common</artifactId>
+                <artifactId>kdla-component-common</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-dal</artifactId>
+                <artifactId>kdla-component-dal</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-domain</artifactId>
+                <artifactId>kdla-component-domain</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-model</artifactId>
+                <artifactId>kdla-component-model</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-exception</artifactId>
+                <artifactId>kdla-component-exception</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-supplement</artifactId>
+                <artifactId>kdla-component-supplement</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-validator</artifactId>
+                <artifactId>kdla-component-validator</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 

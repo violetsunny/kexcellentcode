@@ -5,7 +5,7 @@
 package top.kexcellent.back.code.weblimit;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class ScriptUtil {
             }
 
         } catch (IOException e) {
-            log.error("ScriptUtil IOException:{}" + ExceptionUtils.getFullStackTrace(e));
+            log.error("ScriptUtil IOException:{}" + ExceptionUtils.getMessage(e));
         }
         return sb.toString();
     }

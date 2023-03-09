@@ -11,18 +11,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kexcellent-back-code</artifactId>
-    <packaging>jar</packaging>
     <name>kexcellent-back-code</name>
 
     <dependencies>
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-common</artifactId>
+            <artifactId>kdla-component-common</artifactId>
         </dependency>
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-dal</artifactId>
+            <artifactId>kdla-component-dal</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-beans</artifactId>
@@ -41,27 +40,27 @@
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-domain</artifactId>
+            <artifactId>kdla-component-domain</artifactId>
         </dependency>
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-model</artifactId>
+            <artifactId>kdla-component-model</artifactId>
         </dependency>
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-exception</artifactId>
+            <artifactId>kdla-component-exception</artifactId>
         </dependency>
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-supplement</artifactId>
+            <artifactId>kdla-component-supplement</artifactId>
         </dependency>
 
         <dependency>
             <groupId>top.kdla.framework</groupId>
-            <artifactId>kdla-validator</artifactId>
+            <artifactId>kdla-component-validator</artifactId>
         </dependency>
 
         <dependency>
@@ -301,6 +300,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+            <version>2.14.2</version>
         </dependency>
     </dependencies>
 

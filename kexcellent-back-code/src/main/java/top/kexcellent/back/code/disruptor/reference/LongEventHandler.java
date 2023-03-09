@@ -5,8 +5,7 @@
 package top.kexcellent.back.code.disruptor.reference;
 
 import com.lmax.disruptor.EventHandler;
-import top.kdla.framework.common.utils.LocalDateTimeUtils;
-import top.kexcellent.back.code.disruptor.reference.LongEvent;
+import top.kdla.framework.common.utils.LocalDateTimeUtil;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +19,6 @@ public class LongEventHandler implements EventHandler<LongEvent> {
     @Override
     public void onEvent(LongEvent event, long sequence, boolean endOfBatch)
     {
-        System.out.println(LocalDateTimeUtils.toString(LocalDateTime.now()) + ":Event-" + event.get());
+        System.out.println(LocalDateTimeUtil.toString(LocalDateTime.now()) + ":Event-" + event.get());
     }
 }

@@ -33,7 +33,7 @@ public class CompletableFutureExample {
             return person.getName();
         });
 
-        List<String> msg = MultiThreadInvokeHelp.invokeGet(suppliers,ExecutorFactory.getInstance());
+        List<String> msg = MultiThreadInvokeHelp.invokeGetS(suppliers,ExecutorFactory.getInstance());
 
     }
 

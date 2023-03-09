@@ -15,7 +15,7 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
-import top.kdla.framework.common.utils.GzipUtils;
+import top.kdla.framework.common.utils.GzipUtil;
 import top.kdla.framework.exception.BizException;
 
 import javax.xml.bind.JAXBException;
@@ -107,7 +107,7 @@ public abstract class AbstractBaseHttpClient {
         log.info("<interflightorderapi><AbstractIntBaseHttpClient><getPost><getPost>" + "post请求:" + jsonStr);
         String response = Request.Post(url).connectTimeout(10000).socketTimeout(10000).bodyString(jsonStr, ContentType.DEFAULT_TEXT).execute().returnContent().asString();
         log.info("<interflightorderapi><AbstractIntBaseHttpClient><getPost><getPost>" + "返回原始值:" + response);
-        String ret = GzipUtils.unZip(response);
+        String ret = GzipUtil.unZip(response);
         log.info("<interflightorderapi><AbstractIntBaseHttpClient><getPost><getPost>" + "base64解码,GZIP解压缩后的值:" + ret);
         return "";
     }
