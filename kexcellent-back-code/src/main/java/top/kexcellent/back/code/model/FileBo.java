@@ -12,7 +12,7 @@ import lombok.Data;
  * @version $Id: FileVO, v 0.1 2016/11/3 19:50 jzx41637 Exp $
  */
 @Data
-public class FileVO {
+public class FileBo {
     private String fileName;
     private String filePath;
 }

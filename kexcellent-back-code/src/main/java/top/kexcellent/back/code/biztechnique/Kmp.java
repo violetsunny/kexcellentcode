@@ -67,14 +67,14 @@ public class Kmp {
 
 
     public static void main(String[] args) {
-       //String s = "bbc adafafda dafdsfa ddds ddas";
-        String s = "bbbbbb";
+       String s = "bbc adafafda dafdsfa ddds ddas";
+        //String s = "bbbbbb";
         int[] next = new int[s.length()];
-//        String p = "fa d";
-//        int sub = kmp(s,p,next);
-//        System.out.println(sub);
-        getNext(s,next);
-        System.out.print(""+next[0]+next[1]+next[2]+next[3]+next[4]);
+        String p = "fa d";
+        int sub = kmp(s,p,next);
+        System.out.println(sub);
+//        getNext(s,next);
+//        System.out.print(""+next[0]+next[1]+next[2]+next[3]+next[4]);
 
     }
 
