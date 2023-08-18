@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.ClassUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,104 +29,186 @@ import java.util.List;
 @Data
 public class RedissonConfig {
     private static Logger logger = LoggerFactory.getLogger(RedissonConfig.class);
+
+    //format: 127.0.0.1:7000,127.0.0.1:7001;
     private String address;
+
+    //single node properties
     private int connectionMinimumIdleSize = 10;
-    private int idleConnectionTimeout = 10000;
-    private int pingTimeout = 1000;
-    private int connectTimeout = 10000;
-    private int timeout = 3000;
-    private int retryAttempts = 3;
-    private int retryInterval = 1500;
-    private int reconnectionTimeout = 3000;
-    private int failedAttempts = 3;
+    private int idleConnectionTimeout=10000;
+    private int pingTimeout=1000;
+    private int connectTimeout=10000;
+    private int timeout=3000;
+    private int retryAttempts=3;
+    private int retryInterval=1500;
+    private int reconnectionTimeout=3000;
+    private int failedAttempts=3;
+    //multi nodes, password split by comma(,)
     private String password = null;
-    private int subscriptionsPerConnection = 5;
-    private String clientName = null;
+    private int subscriptionsPerConnection=5;
+    private String clientName=null;
     private int subscriptionConnectionMinimumIdleSize = 1;
     private int subscriptionConnectionPoolSize = 50;
     private int connectionPoolSize = 64;
     private int database = 0;
     private boolean dnsMonitoring = false;
     private int dnsMonitoringInterval = 5000;
-    private ReadMode readMode;
-    private int scanInterval;
-    private RedisClusterType type;
-    private int thread;
-    private String codec;
 
-    public RedissonConfig() {
-        this.readMode = ReadMode.MASTER;
-        this.scanInterval = 1000;
-        this.type = RedisClusterType.REPLICATE;
-        this.codec = "org.redisson.codec.JsonJacksonCodec";
-    }
+    //master slave properties
+    private ReadMode readMode = ReadMode.MASTER;
 
-    public List<RedissonClient> redissons() throws Exception {
-        List<RedissonClient> clients = new ArrayList();
-        if (RedisClusterType.SINGLE.equals(this.type)) {
-            clients.add(Redisson.create(this.configSingleNode(this.address, this.password)));
-        } else {
-            Config config;
-            Codec codec;
-            if (RedisClusterType.MASTERSLAVE.equals(this.type)) {
-                config = new Config();
-                ((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)((MasterSlaveServersConfig)config.useMasterSlaveServers().setMasterAddress(this.address).addSlaveAddress(new String[]{this.address}).setMasterConnectionMinimumIdleSize(this.connectionMinimumIdleSize)).setMasterConnectionPoolSize(this.connectionPoolSize)).setSlaveConnectionMinimumIdleSize(this.connectionMinimumIdleSize)).setSlaveConnectionPoolSize(this.connectionPoolSize)).setReadMode(this.readMode)).setDatabase(this.database).setSubscriptionsPerConnection(this.subscriptionsPerConnection)).setClientName(this.clientName)).setFailedSlaveCheckInterval(this.failedAttempts)).setRetryAttempts(this.retryAttempts)).setRetryInterval(this.retryInterval)).setFailedSlaveCheckInterval(this.reconnectionTimeout)).setTimeout(this.timeout)).setConnectTimeout(this.connectTimeout)).setIdleConnectionTimeout(this.idleConnectionTimeout)).setPingConnectionInterval(this.pingTimeout)).setPassword(this.password);
-                codec = (Codec) ClassUtils.forName(this.getCodec(), ClassUtils.getDefaultClassLoader()).newInstance();
-                config.setCodec(codec);
-                config.setThreads(this.thread);
-                config.setEventLoopGroup(new NioEventLoopGroup());
-                config.setTransportMode(TransportMode.NIO);
-                clients.add(Redisson.create(config));
-            } else if (RedisClusterType.CLUSTER.equals(this.type)) {
-                config = new Config();
-                ((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)((ClusterServersConfig)config.useClusterServers().addNodeAddress(new String[]{this.address}).setScanInterval(this.scanInterval).setSubscriptionsPerConnection(this.subscriptionsPerConnection)).setClientName(this.clientName)).setFailedSlaveCheckInterval(this.failedAttempts)).setRetryAttempts(this.retryAttempts)).setRetryInterval(this.retryInterval)).setFailedSlaveCheckInterval(this.reconnectionTimeout)).setTimeout(this.timeout)).setConnectTimeout(this.connectTimeout)).setIdleConnectionTimeout(this.idleConnectionTimeout)).setPingConnectionInterval(this.pingTimeout)).setPassword(this.password);
-                codec = (Codec)ClassUtils.forName(this.getCodec(), ClassUtils.getDefaultClassLoader()).newInstance();
-                config.setCodec(codec);
-                config.setThreads(this.thread);
-                config.setEventLoopGroup(new NioEventLoopGroup());
-                config.setTransportMode(TransportMode.NIO);
-                clients.add(Redisson.create(config));
-            } else if (RedisClusterType.REPLICATE.equals(this.type)) {
-                String[] nodes = this.address.split(",");
-                int index;
-                String[] passwords;
-                if (this.password != null) {
-                    passwords = this.password.split(",");
-                    index = 0;
-                    String[] var5 = nodes;
-                    int var6 = nodes.length;
+    //cluster properties
+    private int scanInterval = 1000;
+    //unlock失败重试次数
+    private int unlockRetry = 3;
 
-                    for(int var7 = 0; var7 < var6; ++var7) {
-                        String node = var5[var7];
-                        clients.add(Redisson.create(this.configSingleNode(node, passwords[index])));
-                        ++index;
-                    }
-                } else {
-                    passwords = nodes;
-                    index = nodes.length;
+    private RedisClusterType type = RedisClusterType.REPLICATE;
 
-                    for(int var11 = 0; var11 < index; ++var11) {
-                        String node = passwords[var11];
-                        clients.add(Redisson.create(this.configSingleNode(node, (String)null)));
-                    }
+    private int thread; //当前处理核数量 * 2
+
+    private String codec="org.redisson.codec.JsonJacksonCodec";
+
+    private int pingConnectionInterval = 5000;
+
+    public List<RedissonClient> redissons(){
+        List<RedissonClient> clients = new ArrayList<>();
+
+        if(RedisClusterType.SINGLE.equals(type)){
+            clients.add(Redisson.create(configSingleNode(address, password)));
+        }else if(RedisClusterType.MASTERSLAVE.equals(type)){
+            //TODO 3.2 master slave not support dns configure
+            clients.add(Redisson.create(configMasterSlave()));
+        }else if(RedisClusterType.CLUSTER.equals(type)){
+            clients.add(Redisson.create(configCluster()));
+        }else if(RedisClusterType.REPLICATE.equals(type)){
+            String[] nodes = address.split(",");
+            if(password!=null){
+                String[] passwords = password.split(",");
+                int index = 0;
+                for(String node : nodes){
+                    clients.add(Redisson.create(configSingleNode(node, passwords[index])));
+                    index++;
                 }
-            } else if (RedisClusterType.SENTINEL.equals(this.type)) {
+            }else{
+                for(String node : nodes){
+                    clients.add(Redisson.create(configSingleNode(node, null)));
+                }
             }
+        }else if(RedisClusterType.SENTINEL.equals(type)){
+            //TODO
         }
 
         return clients;
     }
 
-    private Config configSingleNode(String address, String password) throws Exception {
+    private Config configSingleNode(String address, String password) {
         Config config = new Config();
-        ((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)((SingleServerConfig)config.useSingleServer().setAddress(address).setConnectionMinimumIdleSize(this.connectionMinimumIdleSize).setConnectionPoolSize(this.connectionPoolSize).setDatabase(this.database).setDnsMonitoringInterval((long)this.dnsMonitoringInterval).setSubscriptionConnectionMinimumIdleSize(this.subscriptionConnectionMinimumIdleSize).setSubscriptionConnectionPoolSize(this.subscriptionConnectionPoolSize).setSubscriptionsPerConnection(this.subscriptionsPerConnection)).setClientName(this.clientName)).setRetryAttempts(this.retryAttempts)).setRetryInterval(this.retryInterval)).setTimeout(this.timeout)).setConnectTimeout(this.connectTimeout)).setIdleConnectionTimeout(this.idleConnectionTimeout)).setPingConnectionInterval(this.pingTimeout)).setPassword(password);
-        Codec codec = (Codec)ClassUtils.forName(this.getCodec(), ClassUtils.getDefaultClassLoader()).newInstance();
+        config.useSingleServer().setAddress(address)
+                .setConnectionMinimumIdleSize(connectionMinimumIdleSize)
+                .setConnectionPoolSize(connectionPoolSize)
+                .setDatabase(database)
+//                .setDnsMonitoring(dnsMonitoring)
+                .setDnsMonitoringInterval(dnsMonitoringInterval)
+                .setSubscriptionConnectionMinimumIdleSize(subscriptionConnectionMinimumIdleSize)
+                .setSubscriptionConnectionPoolSize(subscriptionConnectionPoolSize)
+                .setSubscriptionsPerConnection(subscriptionsPerConnection)
+                .setClientName(clientName)
+//                .setFailedAttempts(failedAttempts)
+                .setRetryAttempts(retryAttempts)
+                .setRetryInterval(retryInterval)
+//                .setReconnectionTimeout(reconnectionTimeout)
+                .setTimeout(timeout)
+                .setConnectTimeout(connectTimeout)
+                .setIdleConnectionTimeout(idleConnectionTimeout)
+//                .setPingTimeout(pingTimeout)
+                .setPassword(password)
+                .setPingConnectionInterval(pingConnectionInterval);
+        Codec codec = getCodecInstance();
         config.setCodec(codec);
-        config.setThreads(this.thread);
+        config.setThreads(thread);
         config.setEventLoopGroup(new NioEventLoopGroup());
         config.setTransportMode(TransportMode.NIO);
-        logger.info("inti the redisson client with config: {}", config.toJSON());
+        try {
+            logger.info("inti the redisson client with config: {}", config.toJSON());
+        }
+        catch (IOException ex){
+            logger.error("parse json error:{}",ex);
+        }
         return config;
+    }
+
+    private Config configMasterSlave(){
+        Config config = new Config();
+        config.useMasterSlaveServers().setMasterAddress(address)
+                .addSlaveAddress(address)
+                .setMasterConnectionMinimumIdleSize(connectionMinimumIdleSize)
+                .setMasterConnectionPoolSize(connectionPoolSize)
+                .setSlaveConnectionMinimumIdleSize(connectionMinimumIdleSize)
+                .setSlaveConnectionPoolSize(connectionPoolSize)
+                .setReadMode(readMode)
+                .setDatabase(database)
+                .setSubscriptionsPerConnection(subscriptionsPerConnection)
+                .setClientName(clientName)
+                .setFailedSlaveCheckInterval(failedAttempts)
+                .setRetryAttempts(retryAttempts)
+                .setRetryInterval(retryInterval)
+                .setFailedSlaveCheckInterval(reconnectionTimeout)
+                .setTimeout(timeout)
+                .setConnectTimeout(connectTimeout)
+                .setIdleConnectionTimeout(idleConnectionTimeout)
+//                .setPingTimeout(pingTimeout)
+                .setPassword(password)
+                .setPingConnectionInterval(pingConnectionInterval);
+        Codec codec = getCodecInstance();
+        config.setCodec(codec);
+        config.setThreads(thread);
+        config.setEventLoopGroup(new NioEventLoopGroup());
+        config.setTransportMode(TransportMode.NIO);
+        return config;
+    }
+
+    private Config configCluster(){
+        Config config = new Config();
+        config.useClusterServers()
+                .addNodeAddress(address)
+                .setScanInterval(scanInterval)
+                .setSubscriptionsPerConnection(subscriptionsPerConnection)
+                .setClientName(clientName)
+                .setFailedSlaveCheckInterval(failedAttempts)
+                .setRetryAttempts(retryAttempts)
+                .setRetryInterval(retryInterval)
+                .setFailedSlaveCheckInterval(reconnectionTimeout)
+                .setTimeout(timeout)
+                .setConnectTimeout(connectTimeout)
+                .setIdleConnectionTimeout(idleConnectionTimeout)
+//                .setPingTimeout(pingTimeout)
+                .setPassword(password)
+                .setPingConnectionInterval(pingConnectionInterval);
+        Codec codec = getCodecInstance();
+        config.setCodec(codec);
+        config.setThreads(thread);
+        config.setEventLoopGroup(new NioEventLoopGroup());
+        config.setTransportMode(TransportMode.NIO);
+        return config;
+    }
+
+    private Codec getCodecInstance(){
+        try {
+            Codec  codec = (Codec) ClassUtils.forName(getCodec(), ClassUtils.getDefaultClassLoader()).newInstance();
+            return codec;
+        }
+        catch (ClassNotFoundException ex){
+            logger.error("codec class not found : {}",getCodec());
+            throw new RuntimeException(ex);
+        }
+        catch (IllegalAccessException ex){
+            logger.error("get codec error : {}",ex);
+            throw new RuntimeException(ex);
+        }
+        catch (InstantiationException ex){
+            logger.error("get codec error : {}",ex);
+            throw new RuntimeException(ex);
+        }
     }
 
 }

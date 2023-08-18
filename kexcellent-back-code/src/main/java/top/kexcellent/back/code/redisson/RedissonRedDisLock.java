@@ -23,88 +23,77 @@ import java.util.stream.Collectors;
  */
 public class RedissonRedDisLock implements DistributeLock {
     private static Logger logger = LoggerFactory.getLogger(RedissonRedDisLock.class);
-    private RedissonConfig config;
-    private List<RedissonClient> redissonClientList;
+
+    private RdfaDistributeLockFactory factory;
+
+    public RedissonRedDisLock(RdfaDistributeLockFactory factory) {
+        this.factory = factory;
+    }
+
     private static final String SHADOW_KEY = "R_SHADOW:";
 
-    public RedissonRedDisLock(RedissonConfig config) {
-        this.config = config;
-    }
-
-    @PostConstruct
-    public void init() throws Exception {
-        this.redissonClientList = this.config.redissons();
-    }
-
-    @PreDestroy
-    public void destroy() {
-        this.redissonClientList.stream().forEach((client) -> {
-            try {
-                client.shutdown();
-            } catch (Exception var2) {
-                logger.warn(var2.getMessage(), var2);
-            }
-
-        });
-    }
-
     @Override
-    public Lock lock(String lockKey) throws Exception {
-        return this.lock(lockKey, (TimeUnit)null, -1L, -1L);
+    public Lock lock(String lockKey) throws LockFailException{
+        return lock(lockKey, null, -1, -1);
     }
 
+    /**保持兼容,全部使用没有超时时间的锁*/
     @Override
-    public Lock lock(String lockKey, long timeout) throws Exception {
-        return this.lock(lockKey, TimeUnit.SECONDS, timeout);
+    public Lock lock(String lockKey, long timeout) throws LockFailException {
+        return lock(lockKey,TimeUnit.SECONDS,-1);
+//        return lock(lockKey, TimeUnit.SECONDS, timeout);
     }
 
+    /**保持兼容,全部使用没有超时时间的锁*/
     @Override
-    public Lock lock(String lockKey, TimeUnit unit, long timeout) throws Exception {
-        return this.lock(lockKey, unit, timeout, -1L);
+    public Lock lock(String lockKey, TimeUnit unit, long timeout) throws LockFailException{
+        return lock(lockKey, unit, -1, -1);
+//        return lock(lockKey, unit, timeout, -1);
     }
 
+    /**保持兼容,全部使用没有超时时间的锁*/
     @Override
-    public Lock lock(String lockKey, TimeUnit unit, long timeout, long leaseTime) throws Exception {
+    public Lock lock(String lockKey, TimeUnit unit, long timeout, long leaseTime) throws LockFailException {
+//        if (FullChainContext.getInstance().isPress()) {
+//            lockKey = SHADOW_KEY + lockKey;
+//        }
         logger.info("lock use redlock with name {} start...", lockKey);
-        List<RLock> rlocks = (List)this.redissonClientList.stream().map((client) -> {
-            return client.getLock(lockKey);
-        }).collect(Collectors.toList());
-        RedissonRedLock lock = new RedissonRedLock((RLock[])rlocks.toArray(new RLock[rlocks.size()]));
 
         try {
-            if (lock.tryLock(timeout, leaseTime, unit)) {
-                logger.info("lock use redlock with name {} end...", lockKey);
-                return lock;
-            } else {
-                logger.info("lock use redlock with name {} failed.", lockKey);
-                throw new Exception("lock use redlock with name " + lockKey + " failed.");
+            RedissonRedLock rdfaRedLock = (RedissonRedLock)factory.getLock(lockKey);
+            if(rdfaRedLock.tryLock(timeout, leaseTime, unit)){
+                return rdfaRedLock;
+            }else{
+                throw new LockFailException("lock use redlock with name " + lockKey + " failed.");
             }
-        } catch (InterruptedException var11) {
+        } catch (InterruptedException e) {
             logger.warn("lock time expired");
-            throw new Exception("lock use redlock with name " + lockKey + " failed for " + var11.getMessage());
+            throw new LockFailException("lock use redlock with name " + lockKey + " failed for " + e.getMessage());
         }
     }
 
     @Override
-    public boolean tryLock(String lockKey, TimeUnit unit, long waitTime, long leaseTime) {
+    public boolean tryLock(String lockKey, TimeUnit unit, long waitTime, long leaseTime){
         throw new UnsupportedOperationException("Red lock not support the try lock method.");
     }
 
     @Override
     public void unlock(String lockKey) {
-        throw new UnsupportedOperationException("Red lock not support the unlock by name method, please use unlock(Lock lock)");
+        RedissonRedLock rdfaRedLock = (RedissonRedLock)factory.getLock(lockKey);
+        this.unlock(rdfaRedLock);
     }
 
     @Override
     public void unlock(Lock lock) {
-        logger.info("unlock the redlock {} start...", lock);
-        if (lock != null) {
-            lock.unlock();
-            logger.info("unlock the redlock {} end...", lock);
-        } else {
+        if(lock==null||!(lock instanceof RedissonRedLock)){
+            return;
+        }
+        RedissonRedLock rdfaRedLock = (RedissonRedLock)lock;
+        if(lock!=null){
+            rdfaRedLock.unlock();
+        }else{
             logger.info("lock is null, don't need to unlock");
         }
-
     }
 }
 
