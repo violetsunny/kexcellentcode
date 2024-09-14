@@ -12,6 +12,12 @@
     <description>${project.artifactId}</description>
     <!--<url>http://www.51metaverse.top</url>-->
 
+    <parent>
+        <groupId>top.kdla.framework</groupId>
+        <artifactId>kdla-components</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -19,6 +25,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
         <kdla.framework.version>1.0.0-SNAPSHOT</kdla.framework.version>
+        <junit.version>4.13.1</junit.version>
+        <hsweb.framework.version>4.0.12</hsweb.framework.version>
     </properties>
 
     <distributionManagement>
@@ -68,62 +76,92 @@
             <!-- kdla组件 begin -->
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-common</artifactId>
+                <artifactId>kdla-component-common</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-dal</artifactId>
+                <artifactId>kdla-component-dal</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-domain</artifactId>
+                <artifactId>kdla-component-domain</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-model</artifactId>
+                <artifactId>kdla-component-model</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-exception</artifactId>
+                <artifactId>kdla-component-exception</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-supplement</artifactId>
+                <artifactId>kdla-component-supplement</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>top.kdla.framework</groupId>
-                <artifactId>kdla-validator</artifactId>
+                <artifactId>kdla-component-validator</artifactId>
                 <version>${kdla.framework.version}</version>
             </dependency>
 
             <!-- kdla组件 end -->
 
             <!-- spring-boot-starter -->
+            <!--MongoDB -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
 
-            <!-- 日志 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
 
-            <!-- 工具包 -->
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-commons-crud</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hswebframework.web</groupId>
+                <artifactId>hsweb-starter</artifactId>
+                <version>${hsweb.framework.version}</version>
+            </dependency>
 
 
             <!-- 测试包 -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.13.1</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
