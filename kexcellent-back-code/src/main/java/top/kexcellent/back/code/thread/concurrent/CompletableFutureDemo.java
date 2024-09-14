@@ -5,7 +5,7 @@
 package top.kexcellent.back.code.thread.concurrent;
 
 import com.google.common.collect.Lists;
-import top.kdla.framework.common.utils.DateUtil;
+import top.kdla.framework.common.help.DateHelp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,7 +61,7 @@ public class CompletableFutureDemo {
             CompletableFuture[] cfs = taskList.stream().map(object -> CompletableFuture.supplyAsync(() -> calc(object), exs)
                     .thenApply(i -> Integer.toString(i))//thenApply可以对运行结果进行转化，可用于打印上一阶运行结果
                     .whenComplete((v, e) -> {//如需获取任务完成先后顺序，此处代码即可
-                        System.out.println("任务" + v + "完成!result=" + v + "，异常 e=" + e + "," + DateUtil.format(new Date()));
+                        System.out.println("任务" + v + "完成!result=" + v + "，异常 e=" + e + "," + DateHelp.formatTime(new Date()));
                         list2.add(v);//收集返回值
                     }))
                     .toArray(CompletableFuture[]::new);
@@ -84,7 +84,7 @@ public class CompletableFutureDemo {
             } else {
                 Thread.sleep(1000);//其它任务耗时1秒
             }
-            System.out.println("task线程：" + Thread.currentThread().getName() + "任务i=" + i + ",完成！+" + DateUtil.format(new Date()));
+            System.out.println("task线程：" + Thread.currentThread().getName() + "任务i=" + i + ",完成！+" + DateHelp.formatTime(new Date()));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -5,7 +5,7 @@
 package top.kexcellent.back.code.thread.concurrent;
 
 
-import top.kdla.framework.common.utils.DateUtil;
+import top.kdla.framework.common.help.DateHelp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +39,7 @@ public class FutureDemo {
                 futureList.add(exs.submit(new CallableTask(i + 1)));
             }
             Long getResultStart = System.currentTimeMillis();
-            System.out.println("结果归集开始时间=" + DateUtil.format(new Date()));
+            System.out.println("结果归集开始时间=" + DateHelp.formatTime(new Date()));
             //2.结果归集，遍历futureList,高速轮询（模拟实现了并发）获取future状态成功完成后获取结果，退出当前循环
             for (Future<Integer> future : futureList) {
                 while (true) {
@@ -47,7 +47,7 @@ public class FutureDemo {
                     if (future.isDone() && !future.isCancelled()) {
                         //获取future成功完成状态，如果想要限制每个任务的超时时间，取消本行的状态判断+future.get(1000*1, TimeUnit.MILLISECONDS)+catch超时异常使用即可。
                         Integer i = future.get();//获取结果
-                        System.out.println("任务i=" + i + "获取完成!" + DateUtil.format(new Date()));
+                        System.out.println("任务i=" + i + "获取完成!" + DateHelp.formatTime(new Date()));
                         list.add(i);
                         break;//当前future获取结果完毕，跳出while
                     } else {
