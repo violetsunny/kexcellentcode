@@ -39,4 +39,8 @@ public class SingletonTemplate {
             return singletonTemplate;
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(SingletonTemplate.getInstance());
+    }
 }

@@ -2,7 +2,7 @@
  * kanglele Inc.
  * Copyright (c) 2021 All Rights Reserved.
  */
-package top.kexcellent.back.code.biztechnique;
+package top.kexcellent.back.code.algorithm;
 
 import java.util.Random;
 

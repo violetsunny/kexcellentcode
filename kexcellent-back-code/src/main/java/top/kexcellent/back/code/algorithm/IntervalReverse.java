@@ -2,7 +2,7 @@
  * LY.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package top.kexcellent.back.code.biztechnique;
+package top.kexcellent.back.code.algorithm;
 
 import com.google.common.collect.Lists;
 import top.kexcellent.back.code.model.ListNode;

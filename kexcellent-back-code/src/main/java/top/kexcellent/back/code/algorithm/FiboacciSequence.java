@@ -2,7 +2,7 @@
  * llkang.com Inc.
  * Copyright (c) 2010-2022 All Rights Reserved.
  */
-package top.kexcellent.back.code.biztechnique;
+package top.kexcellent.back.code.algorithm;
 
 /**
  * 斐波拉切数列和青蛙跳台阶
@@ -14,10 +14,8 @@ package top.kexcellent.back.code.biztechnique;
 public class FiboacciSequence {
 
     public static int fib_1(int n) {
-        if(n < 1) {
-            return 0;
-        }else if(n <= 2) {
-            return 1;
+        if(n < 2) {
+            return n;
         }
 
         return fib_1(n-1) + fib_1(n-2);
@@ -82,5 +80,18 @@ public class FiboacciSequence {
             memory_2=memory; //现在的数
         }
         return memory;
+    }
+
+    public static int fib_5(int n) {
+        if(n < 2){
+            return n;
+        }
+        int a = 1;
+        int b = 1;
+        for(int i=2;i<=n;i++){
+            b = a+b;
+            a = b-a;
+        }
+        return b;
     }
 }

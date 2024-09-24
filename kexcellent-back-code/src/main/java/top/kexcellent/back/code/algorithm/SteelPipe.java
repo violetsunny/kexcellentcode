@@ -2,7 +2,7 @@
  * llkang.com Inc.
  * Copyright (c) 2010-2022 All Rights Reserved.
  */
-package top.kexcellent.back.code.biztechnique;
+package top.kexcellent.back.code.algorithm;
 
 /**
  * 钢管切割
