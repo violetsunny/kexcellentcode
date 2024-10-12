@@ -2564,12 +2564,9 @@ class Solution {
         if (pRoot1 != null && pRoot2 != null) {
             if (pRoot1.val == pRoot2.val) {
                 res = isSame(pRoot1, pRoot2);
-            }
-            if (!res) {
-                res = hasSubtree(pRoot1.left, pRoot2);
-            }
-            if (!res) {
-                res = hasSubtree(pRoot1.right, pRoot2);
+            } else {
+                //不相等就继续看左右子树是否有
+                res = hasSubtree(pRoot1.left, pRoot2) || hasSubtree(pRoot1.right, pRoot2);
             }
         }
         return res;
@@ -2641,6 +2638,29 @@ class Solution {
         root.right = t;
         mirror(root.left);
         mirror(root.right);
+    }
+}
+```
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void mirror(TreeNode root) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return;
+        }
+        TreeNode left = mirror(root.left);
+        TreeNode right = mirror(root.right);
+        root.left = right;
+        root.right = left;
     }
 }
 ```
@@ -2773,6 +2793,59 @@ class Solution {
     }
 }
 ```
+### 解法
+
+左l=0 右r=n-1 上t=0 下b=m-1
+
+```java
+class Solution {
+    public int[] printMatrix(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[0];
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[] res = new int[m * n];
+        int l = 0, r = n - 1, t = 0, b = m - 1;
+        int k = 0;
+        while (true) {
+            //左往右，l移动
+            for (int i = t, j = l; j <= r; j++) {
+                res[k++] = matrix[i][j];
+            }
+            t++;//往下一层
+            if (t > b) {
+                break;
+            }
+            //上往下，t移动
+            for (int i = t, j = r; i <= b; i++) {
+                res[k++] = matrix[i][j];
+            }
+            r--;//往左一层
+            if (r > l) {
+                break;
+            }
+            //右往左，r移动
+            for (int i = b, j = r; j >= l; j--) {
+                res[k++] = matrix[i][j];
+            }
+            b--;//往上一层
+            if (t > b) {
+                break;
+            }
+            //下往上，b移动
+            for (int i = b, j = l; i >= t; i--) {
+                res[k++] = matrix[i][j];
+            }
+            l++;//往右一层
+            if (r > l) {
+                break;
+            }
+        }
+        return res;
+    }
+}
+```
 
 ## 30 包含 min 函数的栈
 
@@ -2825,6 +2898,7 @@ class MinStack {
 
     public void push(int x) {
         stack1.push(x);
+        //stack2总是压入当前最小值
         if (stack2.isEmpty() || stack2.peek() > x) {
             stack2.push(x);
         } else {
@@ -2924,6 +2998,25 @@ public class Solution {
     }
 }
 ```
+```java
+import java.util.Deque;
+import java.util.ArrayDeque;
+class Solution {
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Deque<Integer> stk = new ArrayDeque<>();
+        int j = 0;
+        for (int v : pushed) {
+            //压入栈中，按照相等就弹出，就是弹出序列
+            stk.push(v);
+            while (!stk.isEmpty() && stk.peek() == popped[j]) {
+                stk.pop();
+                ++j;
+            }
+        }
+        return stk.isEmpty();
+    }
+}
+````
 
 ## 32.1 不分行从上往下打印二叉树
 
@@ -2972,12 +3065,12 @@ public class Solution {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+            TreeNode node = queue.poll();//从队列中获取并移除头部元素
             if (node.left != null) {
-                queue.offer(node.left);
+                queue.offer(node.left);//左边不为空放入左
             }
             if (node.right != null) {
-                queue.offer(node.right);
+                queue.offer(node.right);//右边不为空放入右
             }
             list.add(node.val);
         }
@@ -3031,22 +3124,18 @@ public class Solution {
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(pRoot);
-        int cnt = 1;
-        while (cnt > 0) {
-            int num = cnt;
-            cnt = 0;
+        while (!queue.isEmpty()) {
+            int num = queue.size();
             ArrayList<Integer> res = new ArrayList<>();
             for (int i = 0; i < num; ++i) {
                 TreeNode node = queue.poll();
+                res.add(node.val);
                 if (node.left != null) {
                     queue.offer(node.left);
-                    ++cnt;
                 }
                 if (node.right != null) {
                     queue.offer(node.right);
-                    ++cnt;
                 }
-                res.add(node.val);
             }
             list.add(res);
         }
@@ -3168,7 +3257,7 @@ public class Solution {
 
 ### 解法
 
-序列的最后一个元素是二叉搜索树的根节点。
+序列的最后一个元素是二叉搜索树的根节点。根据二叉搜索树的性质，根节点左边的元素都小于根节点，根节点右边的元素都大于根节点。
 
 在序列中从左到右找到根节点的左子树(比根节点小)、右子树(比根节点大)。
 
@@ -3197,19 +3286,49 @@ public class Solution {
         int val = sequence[end];
         int i = start;
         for (; i <= end; ++i) {
-            if (sequence[i] >= val) {
+            if (sequence[i] >= val) {//往右挪动找到第一个大于根节点的就是右子树
                 break;
             }
         }
+        
+        //while(sequence[i] < val){++i;} //也是找到第一个大于根节点的位置
 
         for (int j = i; j < end; ++j) {
-            if (sequence[j] < val) {
+            if (sequence[j] < val) {//右边如果有小于根节点的就是false
                 return false;
             }
         }
-
+        //左节点，右节点依次查找最后
         return verify(sequence, start, i - 1) && verify(sequence, i, end - 1);
 
+    }
+}
+```
+### 方法二：单调栈
+从右往左，按照搜索树和后序遍历特性。从根节点开始逐渐增大然后开始降低就是左子树。
+右子树会压栈，如果栈顶元素大于当前值是左子树会出栈。
+如果当前值大于(之前节点的父节点)，那就是false;
+
+- 2 6 5 9 8 11 13 12 10  左右根
+- 10 12 13 11 8 9 5 6 2  根右左
+
+
+```java
+class Solution {
+    public boolean verifyPostorder(int[] postorder) {
+        int mx = 1 << 30;
+        Deque<Integer> stk = new ArrayDeque<>();
+        for (int i = postorder.length - 1; i >= 0; --i) {
+            int x = postorder[i];
+            if (x > mx) {
+                return false;
+            }
+            while (!stk.isEmpty() && stk.peek() > x) {
+                mx = stk.pop();
+            }
+            stk.push(x);
+        }
+        return true;
     }
 }
 ```
@@ -3220,7 +3339,7 @@ public class Solution {
 
 ### 题目描述
 
-输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的`list`中，数组长度大的数组靠前)
+输入一颗二叉树的根节点和一个整数，打印出二叉树中跟节点到叶子结点路径中国所有值的和等于输入整数值的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的`list`中，数组长度大的数组靠前)
 
 ### 解法
 
@@ -3259,6 +3378,9 @@ public class Solution {
 
     private void findPath(TreeNode root, int target, ArrayList<Integer> list) {
         if (root == null) {
+            return;
+        }
+        if (target < 0) {
             return;
         }
         list.add(root.val);
@@ -3338,7 +3460,9 @@ public class Solution {
         RandomListNode cloneHead = pHead.next;
         while (cur.next != null) {
             RandomListNode clone = cur.next;
-            cur.next = clone.next;
+            if(clone!=null){
+              cur.next = clone.next;//从克隆节点下一节点给原来节点，原来节点下一节点给克隆节点，依次往后拆开。
+            }
             cur = clone;
         }
         return cloneHead;
@@ -3361,8 +3485,8 @@ public class Solution {
 中序遍历利用栈来实现。遍历时，前一个结点的 right 指向后一个结点，后一个结点的 left 指向前一个结点。
 
 ```java
-pre.right = cur
-cur.left = pre
+pre.right = cur;
+cur.left = pre;
 ```
 
 ```java
@@ -3418,6 +3542,143 @@ public class Solution {
     }
 }
 ```
+
+````java
+class Solution {
+    
+    private Node pre;
+
+    public Node treeToDoublyList(Node root) {
+        if (root == null) {
+            return null;
+        }
+        dfs(root);
+        root.left = pre;//pre为最后节点，并指向头节点的左
+        pre.right = root;
+        return head;
+    }
+
+    private void dfs(Node cur) {
+        if (cur == null) {
+            return;
+        }
+        //左中右
+        dfs(cur.left);
+        if (pre != null) {
+            pre.right = cur;//当前给前一个节点的右
+        }
+        cur.left = pre;//前一个节点给当前的左
+        pre = cur;//当前为下一次的前
+        dfs(cur.right);
+    }
+}
+````
+<!-- problem:start -->
+
+## [37. 序列化二叉树](https://leetcode.cn/problems/xu-lie-hua-er-cha-shu-lcof/)
+
+## 题目描述
+
+<!-- description:start -->
+
+<p>请实现两个函数，分别用来序列化和反序列化二叉树。</p>
+
+<p>你需要设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p>
+
+<p><strong>提示：</strong>输入输出格式与 LeetCode 目前使用的方式一致，详情请参阅&nbsp;<a href="https://support.leetcode.cn/hc/kb/article/1194353/">LeetCode 序列化二叉树的格式</a>。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。</p>
+
+<p><strong>示例：</strong></p>
+<pre>
+<strong>输入：</strong>root = [1,2,3,null,null,4,5]
+<strong>输出：</strong>[1,2,3,null,null,4,5]
+</pre>
+
+<p>&nbsp;</p>
+
+<p>注意：本题与主站 297 题相同：<a href="https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/">https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/</a></p>
+
+<!-- description:end -->
+
+## 解法
+
+<!-- solution:start -->
+
+### 方法一：层序遍历
+
+我们可以采用层序遍历的方式对二叉树进行序列化，即从根节点开始，依次将二叉树的节点按照从上到下、从左到右的顺序加入队列中，然后将队列中的节点依次出队。如果节点不为空，则将其值加入序列化字符串中，否则加入特殊字符 `#`。最后将序列化字符串返回即可。
+
+反序列化时，我们将序列化字符串按照分隔符进行切分，得到一个字符串数组，然后依次将字符串数组中的元素加入队列中。队列中的元素即为二叉树的节点，我们从队列中依次取出元素，如果元素不为 `#`，则将其转换为整数后作为节点的值，然后将该节点加入队列中，否则将其置为 `null`。最后返回根节点即可。
+
+时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为二叉树的节点个数。
+
+<!-- tabs:start -->
+#### Java
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        List<String> ans = new ArrayList<>();
+        Deque<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (node != null) {
+                ans.add(node.val + "");
+                q.offer(node.left);
+                q.offer(node.right);
+            } else {
+                ans.add("#");
+            }
+        }
+        return String.join(",", ans);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data == null) {
+            return null;
+        }
+        String[] vals = data.split(",");
+        int i = 0;
+        TreeNode root = new TreeNode(Integer.valueOf(vals[i++]));
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            if (!"#".equals(vals[i])) {
+                node.left = new TreeNode(Integer.valueOf(vals[i]));
+                q.offer(node.left);
+            }
+            ++i;
+            if (!"#".equals(vals[i])) {
+                node.right = new TreeNode(Integer.valueOf(vals[i]));
+                q.offer(node.right);
+            }
+            ++i;
+        }
+        return root;
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.deserialize(codec.serialize(root));
+```
+
 
 ## 39 数组中出现次数超过一半的数字
 
@@ -3521,7 +3782,7 @@ public class Solution {
 
 #### 解法二
 
-利用多数投票算法，从头到尾遍历数组，遇到两个不一样的数就把这两个数同时除去。除去的两个数可能都不是 majority，也可能一个是 majority 另一个不是，但是因为 majority 总数大于一半，所以这么删完最后剩下的肯定是 majority。
+利用多数投票算法，从头到尾遍历数组，遇到两个不一样的数就把这两个数同时除去。减去的两个数可能都不是 majority，也可能一个是 majority 另一个不是，但是因为 majority 总数大于一半，所以这么删完最后剩下的肯定是 majority。
 
 此方法时间复杂度为 `O(n)`，且不会改变数组。
 
@@ -3652,6 +3913,47 @@ public class Solution {
     }
 }
 ```
+
+````java
+class Solution {
+    private int[] arr;
+    private int k;
+
+    public int[] getLeastNumbers(int[] arr, int k) {
+        int n = arr.length;
+        this.arr = arr;
+        this.k = k;
+        return k == n ? arr : quickSort(0, n - 1);
+    }
+
+    private int[] quickSort(int l, int r) {
+        int i = l, j = r;
+        while (i < j) {
+            while (i < j && arr[j] >= arr[l]) {
+                --j;
+            }
+            while (i < j && arr[i] <= arr[l]) {
+                ++i;
+            }
+            swap(i, j);
+        }
+        swap(i, l);
+        if (k < i) {
+            return quickSort(l, i - 1);
+        }
+        if (k > i) {
+            return quickSort(i + 1, r);
+        }
+        return Arrays.copyOf(arr, k);
+    }
+
+    private void swap(int i, int j) {
+        int t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
+}
+````
 
 #### 解法二
 
