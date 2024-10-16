@@ -2,17 +2,17 @@
  * llkang.com Inc.
  * Copyright (c) 2010-2022 All Rights Reserved.
  */
-package top.kexcellent.back.code.algorithm;
+package top.kexcellent.back.code.algorithm.sort;
 
 import java.util.Arrays;
 
 /**
- * 归并排序
+ * 归并排序,时间复杂度O(nlogn)，空间复杂度O(n) out-place 稳定性排序
  *
  * @author kanglele
  * @version $Id: Merge, v 0.1 2022/6/9 10:50 kanglele Exp $
  */
-public class Merge {
+public class MergeSort {
 
     public int[] sort(int[] arr){
         if(arr.length<2){

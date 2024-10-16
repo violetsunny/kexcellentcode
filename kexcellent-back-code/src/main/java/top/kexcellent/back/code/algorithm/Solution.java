@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 回文字符
  * @author kanglele01
  * @version $Id: PalindRome, v 0.1 2021/3/10 15:01 kanglele01 Exp $
  */

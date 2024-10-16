@@ -2,11 +2,12 @@
  * LY.com Inc.
  * Copyright (c) 2004-2021 All Rights Reserved.
  */
-package top.kexcellent.back.code.algorithm;
+package top.kexcellent.back.code.algorithm.sort;
 
 import java.util.Arrays;
 
 /**
+ * 锦标赛排序
  * @author kanglele01
  * @version $Id: TournamentSort, v 0.1 2021/3/8 13:44 kanglele01 Exp $
  */

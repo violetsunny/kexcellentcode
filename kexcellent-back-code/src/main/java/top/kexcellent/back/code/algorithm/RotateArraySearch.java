@@ -5,7 +5,7 @@
 package top.kexcellent.back.code.algorithm;
 
 /**
- * arr[start]比arr[end] 消耗少
+ * 搜索旋转排序数组 arr[start]比arr[end] 消耗少
  * @author kanglele
  * @version $Id: a, v 0.1 2024/9/23 下午3:54 kanglele Exp $
  */
