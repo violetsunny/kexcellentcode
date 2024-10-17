@@ -41,7 +41,7 @@ public class FastRowSort {
 
     /**
      *  按照最右侧的元素为基准，返回基准值在low~high范围中的位置 左指针要先移动
-     *  最左为基准，需要右指针先移动
+     *  如果是最左为基准，需要右指针先移动
      */
     private static int partion(int[] arr, int low, int high) {
         int baseVal = arr[high];

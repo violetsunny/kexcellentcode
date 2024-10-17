@@ -3609,7 +3609,7 @@ class Solution {
 
 反序列化时，我们将序列化字符串按照分隔符进行切分，得到一个字符串数组，然后依次将字符串数组中的元素加入队列中。队列中的元素即为二叉树的节点，我们从队列中依次取出元素，如果元素不为 `#`，则将其转换为整数后作为节点的值，然后将该节点加入队列中，否则将其置为 `null`。最后返回根节点即可。
 
-时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 为二叉树的节点个数。
+时间复杂度 O(n)，空间复杂度 O(n)。其中 n 为二叉树的节点个数。
 
 <!-- tabs:start -->
 #### Java
@@ -3713,18 +3713,18 @@ public class Codec {
 
 ### 方法一：回溯 + 哈希表
 
-我们设计一个函数 $dfs(i)$，表示当前排列到了第 $i$ 个位置，我们需要在第 $i$ 个位置上填入一个字符，这个字符可以从 $s[i..n-1]$ 中任意选择。
+我们设计一个函数 dfs(i)，表示当前排列到了第 i 个位置，我们需要在第 i 个位置上填入一个字符，这个字符可以从 s[i..n-1] 中任意选择。
 
-函数 $dfs(i)$ 的执行过程如下：
+函数 dfs(i) 的执行过程如下：
 
--   如果 $i = n-1$，说明当前排列已经填满，将当前排列加入答案，返回。
--   否则，我们需要在 $s[i..n-1]$ 中选择一个字符填入第 $i$ 个位置，我们可以使用哈希表记录哪些字符已经被填过，从而避免重复填入相同的字符。
--   在 $s[i..n-1]$ 中选择一个字符填入第 $i$ 个位置，然后递归执行函数 $dfs(i+1)$，即填入第 $i+1$ 个位置。
--   回溯，撤销选择，即将第 $i$ 个位置的字符填回原位。
+-   如果 i = n-1，说明当前排列已经填满，将当前排列加入答案，返回。
+-   否则，我们需要在 s[i..n-1] 中选择一个字符填入第 i 个位置，我们可以使用哈希表记录哪些字符已经被填过，从而避免重复填入相同的字符。
+-   在 s[i..n-1] 中选择一个字符填入第 i 个位置，然后递归执行函数 dfs(i+1)，即填入第 i+1 个位置。
+-   回溯，撤销选择，即将第 i 个位置的字符填回原位。
 
-我们在主函数中调用函数 $dfs(0)$，即从第 0 个位置开始填入字符。最后返回答案数组即可。
+我们在主函数中调用函数 dfs(0)，即从第 0 个位置开始填入字符。最后返回答案数组即可。
 
-时间复杂度 $O(n! \times n)$，空间复杂度 $O(n)$。其中 $n$ 是字符串 $s$ 的长度。需要进行 $n!$ 次排列，每次排列需要 $O(n)$ 的时间复制字符串。
+时间复杂度 O(n! * n)，空间复杂度 O(n)。其中 n 是字符串 s 的长度。需要进行 n! 次排列，每次排列需要 O(n) 的时间复制字符串。
 
 <!-- tabs:start -->
 ```java
@@ -4181,13 +4181,27 @@ public class Solution {
         res[0] = array[0];
         int max = res[0];
         for (int i = 1; i < n; ++i) {
-            res[i] = res[i - 1] > 0 ? res[i - 1] + array[i] : array[i];
+            res[i] = res[i - 1] > 0 ? res[i - 1] + array[i] : array[i];//要是小于0就是减，不如不要
             max = Math.max(max, res[i]);
         }
         return max;
     }
 }
 ```
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int ans = Integer.MIN_VALUE;
+        int f = 0;
+        for (int x : nums) {
+            f = Math.max(f, 0) + x;
+            ans = Math.max(ans, f);
+        }
+        return ans;
+    }
+}
+```
+
 
 ## 44 数字序列中某一位的数字
 
@@ -4254,6 +4268,32 @@ public class Solution {
                 : (int) Math.pow(10, digits - 1);
     }
 }
+````
+### 解法二
+位数为 k 的最小整数和最大整数分别为 10^{k-1} 和 10^k-1，因此 k 位数的总位数为 k * 9 * 10^{k-1}。
+
+我们用 k 表示当前数字的位数，用 cnt 表示当前位数的数字的总数，初始时 k=1, cnt=9。
+
+每次将 n 减去 cnt * k，当 n 小于等于 cnt * k 时，说明 n 对应的数字在当前位数的数字范围内，此时可以计算出对应的数字。
+
+具体做法是，首先计算出 n 对应的是当前位数的哪一个数字，然后计算出是该数字的第几位，从而得到该位上的数字。
+
+时间复杂度 O(\log_{10} n)，空间复杂度 O(1)。其中 n 为给定的数字
+
+```java
+class Solution {
+    public int findNthDigit(int n) {
+        int k = 1, cnt = 9;
+        while ((long) k * cnt < n) {
+            n -= k * cnt;
+            ++k;
+            cnt *= 10;
+        }
+        int num = (int) Math.pow(10, k - 1) + (n - 1) / k;
+        int idx = (n - 1) % k;
+        return String.valueOf(num).charAt(idx) - '0';
+    }
+}
 ```
 
 ## 45 把数组排成最小的数
@@ -4267,7 +4307,7 @@ public class Solution {
 例如输入数组 `[3, 32, 321]`，则打印出这 3 个数字能排成的最小数字`321323`。
 
 ### 解法
-
+我们将数组中的数字转换为字符串，然后按照字符串拼接的大小进行排序。具体地，比较两个字符串 $a$ 和 $b$，如果 $a + b < b + a$，则 $a$ 小于 $b$，否则 $a$ 大于 $b$。
 ```java
 import java.util.Arrays;
 
@@ -4296,6 +4336,18 @@ class Solution {
             sb.append(str);
         }
         return sb.toString();
+    }
+}
+```
+
+```java
+class Solution {
+    public String minNumber(int[] nums) {
+        return Arrays.stream(nums)
+            .mapToObj(String::valueOf)
+            .sorted((a, b) -> (a + b).compareTo(b + a))
+            .reduce((a, b) -> a + b)
+            .orElse("");
     }
 }
 ```
@@ -4347,6 +4399,54 @@ class Solution {
     private boolean isInRange(char a, char b) {
         int s = (a - '0') * 10 + (b -'0');
         return s >= 10 && s <= 25;
+    }
+}
+```
+
+```java
+class Solution {
+    private int n;
+    private char[] s;
+    private Integer[] f;
+
+    public int translateNum(int num) {
+        s = String.valueOf(num).toCharArray();
+        n = s.length;
+        f = new Integer[n];
+        return dfs(0);
+    }
+
+    private int dfs(int i) {
+        if (i >= n - 1) {
+            return 1;
+        }
+        if (f[i] != null) {
+            return f[i];
+        }
+        int ans = dfs(i + 1);
+        if (s[i] == '1' || (s[i] == '2' && s[i + 1] < '6')) {
+            ans += dfs(i + 2);
+        }
+        return f[i] = ans;
+    }
+}
+```
+最优写法
+```java
+class Solution {
+    public int translateNum(int num) {
+        char[] s = String.valueOf(num).toCharArray();
+        int n = s.length;
+        int a = 1, b = 1;
+        for (int i = 1; i < n; ++i) {
+            int c = b;
+            if (s[i - 1] == '1' || (s[i - 1] == '2' && s[i] < '6')) {
+                c += a;
+            }
+            a = b;
+            b = c;
+        }
+        return b;
     }
 }
 ```
