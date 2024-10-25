@@ -2142,6 +2142,29 @@ public class Solution {
 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
 
 ### 解法
+最优写法<br>
+我们定义两个指针 $i$ 和 $j$，其中指针 $i$ 指向当前元素，指针 $j$ 指向当前最后一个奇数的下一个位置。
+
+接下来，我们从左到右遍历数组，当 $nums[i]$ 是奇数时，我们将其与 $nums[j]$ 交换，然后指针 $j$ 向右移动一位。指针 $i$ 每次向右移动一位，直到遍历完整个数组。
+
+时间复杂度 $O(n)$，空间复杂度 $O(1)$。其中 $n$ 是数组的长度。
+```java
+class Solution {
+    public int[] exchange(int[] nums) {
+        int j = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            //如果是偶数，i移动j不动
+            if ((nums[i] & 1) == 1) {
+                //如果是奇数，i和j都移动并交换
+                int t = nums[i];
+                nums[i] = nums[j];
+                nums[j++] = t;
+            }
+        }
+        return nums;
+    }
+}
+```
 
 #### 解法一
 
@@ -2163,16 +2186,16 @@ public class Solution {
         int numsOfOdd = 0;
         for (int val : array) {
             if (val % 2 == 1) {
-                ++numsOfOdd;
+                ++numsOfOdd;//计算出个数
             }
         }
         int[] bak = Arrays.copyOf(array, array.length);
         int i = 0, j = numsOfOdd;
         for (int val : bak) {
             if (val % 2 == 1) {
-                array[i++] = val;
+                array[i++] = val;//奇数从0开始放
             } else {
-                array[j++] = val;
+                array[j++] = val;//偶数从奇数个数后开始放
             }
         }
     }
@@ -2191,7 +2214,10 @@ public class Solution {
             return;
         }
         Integer[] bak = new Integer[array.length];
-        Arrays.setAll(bak, i -> array[i]);
+        Arrays.setAll(bak, i -> array[i]);//bak[i] = array[i]
+        //排序，如果y是奇数且x是偶数，结果为 1，意味着y应该排在x前面。
+        //如果y和x都是奇数或者都是偶数，结果为 0，保持它们的相对顺序不变。
+        //如果y是偶数且x是奇数，结果为 -1，意味着x应该排在y前面。
         Arrays.sort(bak, (x, y) -> (y & 1) - (x & 1));
         Arrays.setAll(array, i -> bak[i]);
     }
@@ -2205,12 +2231,44 @@ public class Solution {
 import java.util.Arrays;
 
 public class Solution {
-    public void reOrderArray(int [] array) {
-        
+    
+    public void reOrderArray(int[] array) {
+        qsort(array,0,array.length-1);
     }
 
+  private void qsort(int[] arr, int low, int high) {
+    if (low >= high) {
+      return;
+    }
+    int begin = low;
+    int end = high;
+    int position = position(arr,begin,end);
+    qsort(arr, begin, position-1);
+    qsort(arr, position+1, end);
+  }
+
+  private int position(int[] arr,int low,int high){
+    int baseVal = arr[high];
+    while(low < high){
+      //奇数在前，偶尔在后 low为奇数，baseval为偶数 low在前面
+      while(low<high && (((arr[low]&1)==1 && (baseVal&1)==0) || ((arr[low]&1)==0 && (baseVal&1)==0))){
+        low++;
+      }
+      arr[high] = arr[low];
+      //hign为奇数，baseval为偶数 hign在前面
+      while(low<high && (((arr[high]&1)==0 && (baseVal&1)==1) || ((arr[high]&1)==1 && (baseVal&1)==1))){
+        high--;
+      }
+      arr[low] = arr[high];
+    }
+    //将基准值移到中位
+    arr[low] = baseVal;
+    //返回中间位置
+    return low;
+  }
 }
 ```
+
 
 ## 22 链表中倒数第 k 个节点
 
@@ -3917,6 +3975,24 @@ public class Solution {
     }
 }
 ```
+#### Java
+既然相同的超过一半，相同相加，那不同的相减最后肯定大于0。
+```java
+class Solution {
+    public int majorityElement(int[] nums) {
+        int cnt = 0, m = 0;
+        for (int v : nums) {
+            if (cnt == 0) {
+                m = v;
+                cnt = 1;
+            } else {
+                cnt += (m == v ? 1 : -1);
+            }
+        }
+        return m;
+    }
+}
+```
 
 ## 40 最小的 k 个数
 
@@ -4188,6 +4264,7 @@ public class Solution {
     }
 }
 ```
+最优写法
 ```java
 class Solution {
     public int maxSubArray(int[] nums) {
@@ -4201,6 +4278,88 @@ class Solution {
     }
 }
 ```
+# [面试题 43. 1 ～ n 整数中 1 出现的次数](https://leetcode.cn/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/)
+
+## 题目描述
+
+<p>输入一个整数 <code>n</code> ，求1～n这n个整数的十进制表示中1出现的次数。</p>
+
+<p>例如，输入12，1～12这些整数中包含1 的数字有1、10、11和12，1一共出现了5次。</p>
+
+<p> </p>
+
+<p><strong>示例 1：</strong></p>
+
+<pre>
+<strong>输入：</strong>n = 12
+<strong>输出：</strong>5
+</pre>
+
+<p><strong>示例 2：</strong></p>
+
+<pre>
+<strong>输入：</strong>n = 13
+<strong>输出：</strong>6</pre>
+
+<p> </p>
+
+<p><strong>限制：</strong></p>
+
+<ul>
+	<li><code>1 <= n < 2^31</code></li>
+</ul>
+
+<p>注意：本题与主站 233 题相同：<a href="https://leetcode.cn/problems/number-of-digit-one/">https://leetcode.cn/problems/number-of-digit-one/</a></p>
+
+
+## 解法
+
+### 方法一：数位 DP
+- 比如510223中1的个数，就是500000中1的个数+10000中1的个数+200中1的个数+20中1的个数+3中1的个数。
+500000就是第6位0-5，后面5位都是0-9。
+- 依次拆解</br>
+  比如pos等于(0,0,false)时，会有10个dsf(-1，0，false)=0+1+0+0+0+0+0+0+0+0;</br>
+&emsp;&emsp; pos等于(0,1,false)时，会有10个dsf(-1，1，false)=1+2+1+1+1+1+1+1+1+1; </br>
+  从第一位1的个数依次加上。
+- 算500000中其实会把10000，200等都会算一遍，就可以保存起来避免重复计算。
+
+
+时间复杂度 $O(\log n)$。
+
+
+#### Java
+
+```java
+class Solution {
+    private int[] a = new int[12];
+    private Integer[][] f = new Integer[12][12];
+
+    public int countDigitOne(int n) {
+        int i = -1;
+        for (; n > 0; n /= 10) {
+            a[++i] = n % 10;
+        }
+        return dfs(i, 0, true);
+    }
+
+    private int dfs(int pos, int cnt, boolean limit) {
+        if (pos < 0) {
+            return cnt;
+        }
+        if (!limit && f[pos][cnt] != null) {
+            return f[pos][cnt];
+        }
+        int up = limit ? a[pos] : 9;
+        int ans = 0;
+        for (int i = 0; i <= up; ++i) {
+            ans += dfs(pos - 1, cnt + (i == 1 ? 1 : 0), limit && i == up);
+        }
+        return f[pos][cnt] = ans;
+    }
+}
+```
+### 方法二：数学公式
+
 
 
 ## 44 数字序列中某一位的数字
@@ -4502,8 +4661,37 @@ class Solution {
     }
 }
 ```
+```java
+class Solution {
+    public int maxValue(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int[][] f = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                f[i][j] = Math.max(f[i - 1][j], f[i][j - 1]) + grid[i - 1][j - 1];
+            }
+        }
+        return f[m][n];
+    }
+}
+```
+空间优化，只能往右和往下，所以可以用个两行数组即可。i & 1 偶数为0奇数为1，再^1则偶数为1奇数为0
+```java
+class Solution {
+    public int maxValue(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        int[][] f = new int[2][n + 1];
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                f[i & 1][j] = Math.max(f[i & 1 ^ 1][j], f[i & 1][j - 1]) + grid[i - 1][j - 1];
+            }
+        }
+        return f[m & 1][n];
+    }
+}
+```
 
-## 48 长不含重复字符的子字符串
+## 48 最长不含重复字符的子字符串
 
 来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
@@ -4562,6 +4750,113 @@ class Solution {
     }
 }
 ```
+### 解法二
+移动窗口：l,r r右移动，如果有重复字符l右移动
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        boolean[] ss = new boolean[128];
+        int ans = 0, j = 0;
+        int n = s.length();
+        for (int i = 0; i < n; ++i) {
+            char c = s.charAt(i);
+            while (ss[c]) {
+              //如果存在就false,j++往右挪动一位
+              ss[s.charAt(j++)] = false;
+            }
+            //当前i减去j挪到的位置就是不同字符的大小
+            ans = Math.max(ans, i - j + 1);
+            ss[c] = true;
+        }
+        return ans;
+    }
+}
+```
+
+# [面试题 51. 数组中的逆序对](https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
+
+## 题目描述
+
+<p>在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。</p>
+
+<p>&nbsp;</p>
+
+<p><strong>示例 1:</strong></p>
+
+<pre><strong>输入</strong>: [7,5,6,4]
+<strong>输出</strong>: 5</pre>
+
+<p>&nbsp;</p>
+
+<p><strong>限制：</strong></p>
+
+<p><code>0 &lt;= 数组长度 &lt;= 50000</code></p>
+
+## 解法
+
+### 方法一：归并排序
+
+归并排序的过程中，如果左边的数大于右边的数，则右边的数与左边的数之后的数都构成逆序对。
+
+时间复杂度 $O(n \times \log n)$，空间复杂度 $O(n)$。其中 $n$ 为数组长度。
+````java
+class Solution {
+    // 原始数组
+    private int[] nums;
+    // 临时数组，用于归并排序过程中的合并操作
+    private int[] t;
+
+    public int reversePairs(int[] nums) {
+        // 将传入的数组赋值给成员变量 nums
+        this.nums = nums;
+        int n = nums.length;
+        // 创建与输入数组长度相同的临时数组
+        this.t = new int[n];
+        // 调用归并排序函数，从数组的起始位置 0 到末尾位置 n - 1，返回逆序对的数量
+        return mergeSort(0, n - 1);
+    }
+
+    private int mergeSort(int l, int r) {
+        // 如果左边界大于等于右边界，说明子数组只有一个元素或为空，逆序对数量为 0
+        if (l >= r) {
+            return 0;
+        }
+        // 计算中间位置
+        int mid = (l + r) >> 1;
+        // 递归地对左右子数组进行归并排序，并统计逆序对数量
+        int ans = mergeSort(l, mid) + mergeSort(mid + 1, r);
+        int i = l, j = mid + 1, k = 0;
+        // 进行合并操作
+        while (i <= mid && j <= r) {
+            // 如果左子数组当前元素小于等于右子数组当前元素
+            if (nums[i] <= nums[j]) {
+                // 将左子数组当前元素放入临时数组 t
+                t[k++] = nums[i++];
+            } else {
+                // 如果左子数组当前元素大于右子数组当前元素
+                // 说明从当前左子数组元素到左子数组末尾的元素都与右子数组当前元素构成逆序对
+                ans += mid - i + 1;
+                // 将右子数组当前元素放入临时数组 t
+                t[k++] = nums[j++];
+            }
+        }
+        // 如果左子数组还有剩余元素，将其放入临时数组 t
+        while (i <= mid) {
+            t[k++] = nums[i++];
+        }
+        // 如果右子数组还有剩余元素，将其放入临时数组 t
+        while (j <= r) {
+            t[k++] = nums[j++];
+        }
+        // 将临时数组 t 中的元素复制回原始数组 nums 的相应位置
+        for (i = l; i <= r; ++i) {
+            nums[i] = t[i - l];
+        }
+        // 返回当前子数组中的逆序对数量
+        return ans;
+    }
+}
+````
 
 ## 52 两个链表的第一个公共结点
 

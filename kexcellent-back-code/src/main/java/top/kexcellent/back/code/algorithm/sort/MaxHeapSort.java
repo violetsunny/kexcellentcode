@@ -10,6 +10,17 @@ package top.kexcellent.back.code.algorithm.sort;
  * @version $Id: MaxHeapSort, v 0.1 2024/10/16 上午11:13 kanglele Exp $
  */
 public class MaxHeapSort {
+
+    // 堆排序
+    public static void maxHeapSort(int[] arr) {
+        buildMaxHeap(arr);
+        int n = arr.length;
+        for (int i = n - 1; i > 0; i--) {
+            swap(arr, 0, i);
+            heapify(arr, n - i, 0);
+        }
+    }
+
     // 构建大顶堆
     public static void buildMaxHeap(int[] arr) {
         int n = arr.length;
@@ -19,16 +30,6 @@ public class MaxHeapSort {
                 swap(arr, current, (current - 1) / 2);
                 current = (current - 1) / 2;
             }
-        }
-    }
-
-    // 堆排序
-    public static void maxHeapSort(int[] arr) {
-        buildMaxHeap(arr);
-        int n = arr.length;
-        for (int i = n - 1; i > 0; i--) {
-            swap(arr, 0, i);
-            heapify(arr, n - i, 0);
         }
     }
 
