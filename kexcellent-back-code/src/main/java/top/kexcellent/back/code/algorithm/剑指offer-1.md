@@ -1332,7 +1332,7 @@ class Solution {
 }
 ```
 
-#### 贪心算法
+#### 解法二 贪心算法
 
 时间复杂度`O(1)`，空间复杂度`O(1)`。
 
@@ -1471,6 +1471,7 @@ class Solution {
 }
 ```
 
+ 
 #### 解法三
 
 利用 Java API。
@@ -1489,6 +1490,7 @@ class Solution {
     }
 }
 ```
+
 
 ## 16 数值的整数次方
 
@@ -1911,6 +1913,7 @@ p="a*"
 输出:true
 ```
 
+
 ### 解法
 
 判断模式中第二个字符是否是 `*`：
@@ -2203,7 +2206,7 @@ public class Solution {
 }
 ```
 
-#### 解法二
+第二种写法，利用Arrays的方法
 
 ```java
 import java.util.Arrays;
@@ -2226,7 +2229,7 @@ public class Solution {
 ```
 
 #### 解法三
-双指针交换 快排
+双指针交换 快排。超时，要优化
 ```java
 import java.util.Arrays;
 
@@ -2700,6 +2703,7 @@ class Solution {
 }
 ```
 
+
 ```java
 /**
  * Definition for a binary tree node.
@@ -2851,7 +2855,8 @@ class Solution {
     }
 }
 ```
-### 解法
+
+### 解法二
 
 左l=0 右r=n-1 上t=0 下b=m-1
 
@@ -3631,13 +3636,11 @@ class Solution {
     }
 }
 ````
-<!-- problem:start -->
+
 
 ## [37. 序列化二叉树](https://leetcode.cn/problems/xu-lie-hua-er-cha-shu-lcof/)
 
 ## 题目描述
-
-<!-- description:start -->
 
 <p>请实现两个函数，分别用来序列化和反序列化二叉树。</p>
 
@@ -3655,11 +3658,8 @@ class Solution {
 
 <p>注意：本题与主站 297 题相同：<a href="https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/">https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/</a></p>
 
-<!-- description:end -->
 
 ## 解法
-
-<!-- solution:start -->
 
 ### 方法一：层序遍历
 
@@ -3669,7 +3669,7 @@ class Solution {
 
 时间复杂度 O(n)，空间复杂度 O(n)。其中 n 为二叉树的节点个数。
 
-<!-- tabs:start -->
+
 #### Java
 
 ```java
@@ -3741,7 +3741,7 @@ public class Codec {
 
 ## 题目描述
 
-<!-- description:start -->
+
 
 <p>输入一个字符串，打印出该字符串中字符的所有排列。</p>
 
@@ -3763,11 +3763,11 @@ public class Codec {
 
 <p><code>1 &lt;= s 的长度 &lt;= 8</code></p>
 
-<!-- description:end -->
+
 
 ## 解法
 
-<!-- solution:start -->
+
 
 ### 方法一：回溯 + 哈希表
 
@@ -3784,7 +3784,7 @@ public class Codec {
 
 时间复杂度 O(n! * n)，空间复杂度 O(n)。其中 n 是字符串 s 的长度。需要进行 n! 次排列，每次排列需要 O(n) 的时间复制字符串。
 
-<!-- tabs:start -->
+
 ```java
 class Solution {
     private List<String> ans = new ArrayList<>();
@@ -3926,6 +3926,7 @@ public class Solution {
 
 此方法时间复杂度为 `O(n)`，且不会改变数组。
 
+
 ```java
 public class Solution {
     /**
@@ -3975,7 +3976,8 @@ public class Solution {
     }
 }
 ```
-#### Java
+
+#### 解法三
 既然相同的超过一半，相同相加，那不同的相减最后肯定大于0。
 ```java
 class Solution {
@@ -4359,7 +4361,7 @@ class Solution {
 }
 ```
 ### 方法二：数学公式
-
+????
 
 
 ## 44 数字序列中某一位的数字
@@ -4661,6 +4663,7 @@ class Solution {
     }
 }
 ```
+优化版本
 ```java
 class Solution {
     public int maxValue(int[][] grid) {
@@ -6208,3 +6211,315 @@ class Solution {
     }
 }
 ```
+
+# [面试题 67. 把字符串转换成整数](https://leetcode.cn/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/)
+
+## 题目描述
+<p>写一个函数 StrToInt，实现把字符串转换成整数这个功能。不能使用 atoi 或者其他类似的库函数。</p>
+
+<p>&nbsp;</p>
+
+<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
+
+<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
+
+<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
+
+<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
+
+<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
+
+<p><strong>说明：</strong></p>
+
+<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为&nbsp;[&minus;2<sup>31</sup>,&nbsp; 2<sup>31&nbsp;</sup>&minus; 1]。如果数值超过这个范围，请返回 &nbsp;INT_MAX (2<sup>31&nbsp;</sup>&minus; 1) 或&nbsp;INT_MIN (&minus;2<sup>31</sup>) 。</p>
+
+<p><strong>示例&nbsp;1:</strong></p>
+
+<pre><strong>输入:</strong> &quot;42&quot;
+<strong>输出:</strong> 42
+</pre>
+
+## 解法
+```java
+class Solution {
+    public int strToInt(String str) {
+        if (str == null) return 0;
+        int n = str.length();
+        if (n == 0) return 0;
+        int i = 0;
+        while (str.charAt(i) == ' ') {
+            // 仅包含空格
+            if (++i == n) return 0;
+        }
+        int sign = 1;
+        if (str.charAt(i) == '-') sign = -1;
+        if (str.charAt(i) == '-' || str.charAt(i) == '+') ++i;
+        int res = 0, flag = Integer.MAX_VALUE / 10;
+        for (; i < n; ++i) {
+            // 非数字，跳出循环体
+            if (str.charAt(i) < '0' || str.charAt(i) > '9') break;
+            // 溢出判断
+            if (res > flag || (res == flag) && str.charAt(i) > '7')
+                return sign > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            res = res * 10 + (str.charAt(i) - '0');
+        }
+        return sign * res;
+    }
+}
+```
+
+# [面试题 68 - I. 二叉搜索树的最近公共祖先](https://leetcode.cn/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/)
+
+## 题目描述
+
+<p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p>
+
+<p><a href="https://baike.baidu.com/item/%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/8918834?fr=aladdin" target="_blank">百度百科</a>中最近公共祖先的定义为：&ldquo;对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。&rdquo;</p>
+
+<p>例如，给定如下二叉搜索树:&nbsp; root =&nbsp;[6,2,8,0,4,7,9,null,null,3,5]</p>
+
+<p><img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/images/binarysearchtree_improved.png"></p>
+<img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20I.%20%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/images/binarysearchtree_improved.png">
+<p>&nbsp;</p>
+
+<p><strong>示例 1:</strong></p>
+
+<pre><strong>输入:</strong> root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+<strong>输出:</strong> 6
+<strong>解释:</strong> 节点 2 和节点 8 的最近公共祖先是 6。
+</pre>
+### 方法一：一次遍历
+
+从上到下遍历二叉树，找到第一个值位于 $[p.val,.. q.val]$ 之间的结点即可。既可以用迭代实现，也可以用递归实现。
+
+时间复杂度 $O(n)$，其中 $n$ 是二叉树的结点数。空间复杂度方面，迭代实现的空间复杂度为 $O(1)$，递归实现的空间复杂度为 $O(n)$。
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while (true) {
+            if (root.val < p.val && root.val < q.val) {
+                root = root.right;
+            } else if (root.val > p.val && root.val > q.val) {
+                root = root.left;
+            } else {
+                return root;
+            }
+        }
+    }
+}
+```
+### 方法二
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val < p.val && root.val < q.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        if (root.val > p.val && root.val > q.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+        return root;
+    }
+}
+```
+
+# [面试题 68 - II. 二叉树的最近公共祖先](https://leetcode.cn/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/)
+
+## 题目描述
+
+<p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p>
+
+<p><a href="https://baike.baidu.com/item/%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/8918834?fr=aladdin" target="_blank">百度百科</a>中最近公共祖先的定义为：&ldquo;对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。&rdquo;</p>
+
+<p>例如，给定如下二叉树:&nbsp; root =&nbsp;[3,5,1,6,2,0,8,null,null,7,4]</p>
+
+<p><img alt="" src="https://fastly.jsdelivr.net/gh/doocs/leetcode@main/lcof/%E9%9D%A2%E8%AF%95%E9%A2%9868%20-%20II.%20%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/images/binarytree.png"></p>
+
+<p>&nbsp;</p>
+
+<p><strong>示例 1:</strong></p>
+
+<pre><strong>输入:</strong> root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+<strong>输出:</strong> 3
+<strong>解释: </strong>节点 5 和节点 1 的最近公共祖先是节点 3。
+</pre>
+### 方法一：递归
+
+根据“**最近公共祖先**”的定义，若 $root$ 是 $p$, $q$ 的最近公共祖先，则只可能为以下情况之一：
+
+-   如果 $p$ 和 $q$ 分别是 $root$ 的左右节点，那么 $root$ 就是我们要找的最近公共祖先；
+-   如果 $p$ 和 $q$ 都是 $root$ 的左节点，那么返回 $lowestCommonAncestor(root.left, p, q)$；
+-   如果 $p$ 和 $q$ 都是 $root$ 的右节点，那么返回 $lowestCommonAncestor(root.right, p, q)$。
+
+**边界条件讨论**：
+
+-   如果 $root$ 为 `null`，则说明我们已经找到最底了，返回 `null` 表示没找到；
+-   如果 $root$ 与 $p$ 相等或者与 $q$ 相等，则返回 $root$；
+-   如果左子树没找到，递归函数返回 `null`，证明 $p$ 和 $q$ 同在 $root$ 的右侧，那么最终的公共祖先就是右子树找到的结点；
+-   如果右子树没找到，递归函数返回 `null`，证明 $p$ 和 $q$ 同在 $root$ 的左侧，那么最终的公共祖先就是左子树找到的结点。
+
+时间复杂度 $O(n)$，空间复杂度 $O(n)$。其中 $n$ 是二叉树的节点数。
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null) return right;
+        if (right == null) return left;
+        return root;
+    }
+}
+```
+
+# 69.鸡蛋落地（谷歌经典面试题）
+你将获得 K 个鸡蛋，并可以使用一栋从 1 到 N  共有 N 层楼的建筑。
+每个蛋的功能都是一样的，如果一个蛋碎了，你就不能再把它掉下去。
+你知道存在楼层 F ，满足 0 <= F <= N 任何从高于 F 的楼层落下的鸡蛋都会碎，从 F 楼层或比它低的楼层落下的鸡蛋都不会破。
+每次移动，你可以取一个鸡蛋（如果你有完整的鸡蛋）并把它从任一楼层 X 扔下（满足 1 <= X <= N）。
+你的目标是确切地知道 F 的值是多少。
+无论 F 的初始值如何，你确定 F 的值的最小移动次数是多少？
+
+示例 1：
+
+输入：K = 1, N = 2
+输出：2
+解释：
+鸡蛋从 1 楼掉落。如果它碎了，我们肯定知道 F = 0 。
+否则，鸡蛋从 2 楼掉落。如果它碎了，我们肯定知道 F = 1 。
+如果它没碎，那么我们肯定知道 F = 2 。
+因此，在最坏的情况下我们需要移动 2 次以确定 F 是多少。
+示例 2：
+
+输入：K = 2, N = 6
+输出：3
+示例 3：
+
+输入：K = 3, N = 14
+输出：4
+
+
+提示：
+1 <= K <= 100
+1 <= N <= 10000
+
+### 解法一：动态规划
+我们定义dp(K,N)表示鸡蛋数为K，楼层为N的状态，当我们从第x楼扔鸡蛋时：
+- 1）如果鸡蛋不碎，那么状态变成 (K,N−X)，即我们鸡蛋的数目不变，但答案只可能在上方的 N−X 层楼了。也就是说，我们把原问题缩小成了一个规模为 (K,N−X) 的子问题；
+- 2）如果鸡蛋碎了，那么状态变成 (K−1,X−1)，即我们少了一个鸡蛋，但我们知道答案只可能在第 X 楼下方的 X−1 层楼中了。也就是说，我们把原问题缩小成了一个规模为 (K−1,X−1) 的子问题。
+
+这样一来，我们定义dp(K,N)为在状态(K,N)下最少需要的步数，通过以上分析我们可以得到转移方程：
+<pre>dp(k,n) = 1+min{max{dp(k-1,x-1),dp(k,n-x)}};</pre>
+
+从以上转移方程不难看出，我们似乎需要暴力枚举X的值从而得到新的状态，但是这样会使得复杂度达到O(K*N*N)，这是无法通过这道题的，因此我们需要想办法优化枚举的过程。
+
+我们观察到dp(K,N)是一个关于N的单调递增函数，我们稍微的思考一下，对于鸡蛋数K固定的情况下，楼层N的增多，需要的步数一定不会减小，同理我们可以发现第二项的dp(K,N-X)是随着X单调递减的函数。我们假设T1和T2分别表示这两个函数，并假设连续，如下图所示：
+<img src="./images/鸡蛋落地.png">
+我们要找的使这两个函数最大值的最小值的点一定是这两个函数的交点，但是由于T1和T2是离散函数，其中x的取值一定是一些整数点，因此倘若T1和T2的交点不是整数点，则我们要找的点一定是最靠近交点的整数点，此时似乎问题豁然开朗。我们可以通过二分找到交点处左边和右边最近的整数点，并且可以证明，若交点不是整数点，则靠近交点左端的点坐标+1就是右端离交点最近的点。
+
+````java
+class Solution {
+	
+	Map<Integer,Integer> map=new HashMap<>();
+	
+    public int superEggDrop(int K, int N) {
+    	
+    	return dp(K,N);
+    	
+    }
+    
+    private int dp(int k,int n) {
+    	
+    	if(map.containsKey(n*100+k))
+    		return map.get(n*100+k);
+    	
+    	int ans;
+    	if(n==0) ans=0;
+    	else if(k==1) ans=n;
+    	else {
+    		int l=1,r=n;
+    		while(l+1<r) {
+    			int mid=(l+r)/2;
+    			int t1=dp(k-1,mid-1);
+    			int t2=dp(k,n-mid);
+    			if(t1<t2)
+    				l=mid;
+    			else if(t1>t2)
+    				r=mid;
+    			else
+    				l=r=mid;
+    		}
+    		ans=1+Math.min(Math.max(dp(k-1,l-1), dp(k,n-l)),Math.max(dp(k-1,r-1), dp(k,n-r)));
+    	}
+    	
+    	map.put(n*100+k, ans);
+    	
+    	return ans;
+    }
+}
+````
+
+
+### 解法二：数学法
+该方法是我们通常所说的没见过就不太可能想得出来，并且读过题解也很容易忘记的方法。
+我们反过来思考该问题：如果我们可以做T次操作，而且有K个鸡蛋，那么我们能找到答案的最高的N是多少？我们假设f(T,K)为在上述条件下的N，如果我们能够求出所有的f(T,K)，那么只需要找到最小的满足f(T,K)≥N的T即可。
+我们仍然使用动态规划，因为我们需要找到最高的N，因此我们不必思考到底在哪里仍这个鸡蛋，我们只需要知道扔出这个鸡蛋，到底会发生什么？
+
+- 1）如果鸡蛋没碎，那么对应的是f(T-1,K),也就是说在这一层的上方可以有f(T-1,K)层。
+- 2）如果鸡蛋碎了，那么对应的应该是f(T-1,K-1),也就是说在这一层的下方可以有f(T-1,K-1)层。
+
+因此我们可以写出转移方程:
+<pre>f(t,k)=1+f(t-1,k-1)+f(t,k-1);</pre>
+边界条件为：当T≥1时，f(T,1)=T,当K≥1时，f(1,K)=1。
+
+而对于操作次数T,我们可以发现其一定不会超过楼层数N，因此T≤N。
+````java
+class Solution {
+    public int superEggDrop(int K, int N) {
+    	if(N==1) return 1;
+    	//先循环k,因为必须先把所有鸡蛋的可能循环结束，然后再根据次数找最大的N
+    	int[][] f=new int[N+1][K+1];
+    	for(int i=1;i<=K;i++) f[1][i]=1;
+    	
+    	int ans=-1;
+    	for(int i=2;i<=N;i++) {
+    		for(int j=1;j<=K;j++)
+    			f[i][j]=1+f[i-1][j-1]+f[i-1][j];
+    		if(f[i][K]>=N) {
+    			ans=i;
+    			break;
+    		}
+    	}
+    	
+    	return ans;
+    	
+    }
+}
+````

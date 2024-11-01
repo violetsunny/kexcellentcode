@@ -82,31 +82,31 @@ public class Yuxiaor {
         }
     }
 
-//    public static void main(String[] args) {
-//        int[] dist = {9,3,5,4,5,4,6,1,5,5,4,6,5,5,4,2,1};
-//        int[] search = {5,4,6,5,5,4};
+    public static void main(String[] args) {
+        int[] dist = {9,3,5,4,5,4,6,1,5,5,4,6,5,5,4,2,1};
+        int[] search = {5,4,6,5,5,4};
 //        System.out.println(indexOf(dist,search));
 //        System.out.println("---------------");
-//        System.out.println(indexOf2(dist,search));
-//    }
-
-    public static void main(String[] args) {
-        String a="验证码：DCf12ff";
-        String regEx="[^DC0-9]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(a);
-        System.out.println( m.replaceAll("").trim());
-
-        String[] r = a.split("DC");
-
-        Pattern pattern=Pattern.compile("[DC0-9]{4,}(?![DC0-9])");
-        Matcher matcher=pattern.matcher(a);
-        if (matcher.find()){
-            String code=matcher.group(0);
-            System.out.println( code);
-        }
-
+        System.out.println(indexOf2(dist,search));
     }
+
+//    public static void main(String[] args) {
+//        String a="验证码：DCf12ff";
+//        String regEx="[^DC0-9]";
+//        Pattern p = Pattern.compile(regEx);
+//        Matcher m = p.matcher(a);
+//        System.out.println( m.replaceAll("").trim());
+//
+//        String[] r = a.split("DC");
+//
+//        Pattern pattern=Pattern.compile("[DC0-9]{4,}(?![DC0-9])");
+//        Matcher matcher=pattern.matcher(a);
+//        if (matcher.find()){
+//            String code=matcher.group(0);
+//            System.out.println( code);
+//        }
+//
+//    }
 
     public static final String NUMBER_TEXT = "^([0-9]+)$";
 
@@ -163,15 +163,17 @@ public class Yuxiaor {
         int index = -1;
         int j = 0;
         for(int i=0;i<dist.length;i++){
-
+            int x = i;
             while (j < search.length){
-                if(dist[i]!=search[j]){
+                if(dist[x]!=search[j]){
+                    j=0;
                     break;
                 }
                 if(j==0){//记录初始匹配时的下标
                     index = i;
                 }
                 j++;
+                x++;
             }
 
             if(j == search.length){//当全部匹配到才返回

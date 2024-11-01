@@ -1,0 +1,66 @@
+## 24 反转链表
+
+来源：[AcWing](https://www.acwing.com/problem/content/33/)
+
+### 题目描述
+
+输入一个链表，反转链表后，输出新链表的表头。
+
+### 解法
+
+#### 解法一
+
+利用头插法解决。
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(-1);
+        ListNode p = head;
+        ListNode q = head.next;
+        while (q != null) {
+            p.next = dummy.next;
+            dummy.next = p;
+            p = q;
+            q = p.next;
+        }
+        p.next = dummy.next;
+        return p;
+    }
+}
+```
+
+#### 解法二：递归
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode node = reverseList(head.next);
+        head.next.next = head;//就是从后往前依次转
+        head.next = null;
+        return node;
+    }
+}
+```
