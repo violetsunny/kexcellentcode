@@ -58,3 +58,42 @@ class Solution {
     }
 }
 ```
+
+反向输出数组
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+
+    /**
+     * 从尾到头打印链表
+     *
+     * @param head 链表头结点
+     * @return 结果数组
+     */
+    public int[] printListReversingly(ListNode head) {
+        if(head == null){
+            return new int[0];
+        }
+        ListNode temp = head;
+        int count = 0;
+        whiel(temp != null){
+            count++;
+            temp = temp.next;
+        }
+        int[] res = new int[count];
+        while(head != null){
+            res[count--]=head.val;//从后往前赋值
+            head = head.next;
+        }
+        return res;
+    }
+
+}
+```
