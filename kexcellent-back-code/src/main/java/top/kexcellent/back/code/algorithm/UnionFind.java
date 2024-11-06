@@ -5,52 +5,78 @@
 package top.kexcellent.back.code.algorithm;
 
 /**
- * 并查集
+ * 并查集，解决朋友圈个数问题
  * @author kanglele
  * @version $Id: UnionFind, v 0.1 2024/11/6 23:48 user Exp $
  */
 public class UnionFind {
-    // 存储每个元素的父节点
-    private int[] parent;
-    // 存储每个树的大小
-    private int[] rank;
+    // 存储并查集
+    private int[] elements;
+    // 存储树的高度
+    private int[] heights;
 
-    // 构造函数，初始化并查集
-    public UnionFind(int size) {
-        parent = new int[size];
-        rank = new int[size];
-        for (int i = 0; i < size; i++) {
-            parent[i] = i; // 初始时，每个元素的父节点是它自己
-            rank[i] = 1;   // 初始时，每个树的大小为1
+    UnionFind(int n) {
+        elements = new int[n];
+        heights = new int[n];
+        for (int i = 0; i < n; i++) {
+            // 初始都为-1
+            elements[i] = -1;
+            // 初始高度1
+            heights[i] = 1;
         }
     }
 
-    // 查找元素的根节点，并进行路径压缩
-    private int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]); // 路径压缩
+    // 找到一个数的根
+    public int find(int x) {
+        while(elements[x] != -1) {
+            x = elements[x];
         }
-        return parent[x];
+        return x;
     }
 
-    // 合并两个元素所在的集合
+    // 把两个数的根连起来
     public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY) {
-            // 按秩合并
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-                rank[rootY] += rank[rootX];
+        // x的根
+        int rootx = find(x);
+        // y的根
+        int rooty = find(y);
+        // 如果不是同一个根就连起来
+        if(rootx != rooty) {
+            // 矮树向高树合并
+            if(heights[rootx] > heights[rooty]) {
+                elements[rooty] = rootx;
+            } else if(heights[rootx] < heights[rooty]) {
+                elements[rootx] = rooty;
             } else {
-                parent[rootY] = rootX;
-                rank[rootX] += rank[rootY];
+                // 如果高度相同，随便合并
+                elements[rootx] = rooty;
+                // 但是记得合并后高度加一
+                heights[rooty]++;
+            }
+
+        }
+    }
+
+    // 计算形成了多少颗树
+    public int count() {
+        int count = 0;
+        for(int i=0; i<elements.length; i++) {
+            if(elements[i] == -1) {//-1就是每个树的根节点
+                count++;
             }
         }
+        return count;
     }
 
-    // 判断两个元素是否在同一个集合中
-    public boolean isConnected(int x, int y) {
-        return find(x) == find(y);
+    // 打印并查集
+    public void print() {
+        for(int i=0; i<elements.length; i++) {
+            System.out.print(elements[i] + " ");
+        }
+        System.out.println();
+        for(int i=0; i<heights.length; i++) {
+            System.out.print(heights[i] + " ");
+        }
+        System.out.println();
     }
 }
