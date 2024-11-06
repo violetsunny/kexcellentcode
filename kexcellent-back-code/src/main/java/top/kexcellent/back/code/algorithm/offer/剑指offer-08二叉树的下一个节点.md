@@ -69,7 +69,7 @@ class Solution {
 
         // 右子树为空
         TreeNode father = p.father;
-        while (father != null && father.left != p) {
+        while (father != null && father.left != p) {//不为空，且它不是它父节点的左节点就继续找，否则就结束。
             p = father;
             father = p.father;
         }

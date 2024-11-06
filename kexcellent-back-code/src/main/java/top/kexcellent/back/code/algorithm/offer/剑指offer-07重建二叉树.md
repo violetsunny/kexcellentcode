@@ -66,14 +66,14 @@ class Solution {
 
         int i = s2, cnt = 0;
         for (; i <= e2; ++i) {
-            if (inorder[i] == rootVal) {
+            if (inorder[i] == rootVal) {//找到根节点在中序遍历的位置i
                 break;
             }
-            ++cnt;
+            ++cnt;//左的节点数
         }
 
-        root.left = cnt > 0 ? build(preorder, inorder, s1 + 1, s1 + cnt, s2, i - 1) : null;//前序的左边，中序的左边
-        root.right = i < e2 ? build(preorder, inorder, s1 + cnt + 1, e1, i + 1, e2) : null;//前序的右边，中序的右边
+        root.left = cnt > 0 ? build(preorder, inorder, s1 + 1, s1 + cnt, s2, i - 1) : null;//s1+1--s1+cnt是根的右到左子树节点数就是前序的左边，s2--i-1是s2到i根左侧是中序的左边
+        root.right = i < e2 ? build(preorder, inorder, s1 + cnt + 1, e1, i + 1, e2) : null;//同理前序的右边，中序的右边
         return root;
     }
 }

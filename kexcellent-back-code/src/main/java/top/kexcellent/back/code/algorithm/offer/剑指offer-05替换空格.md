@@ -65,15 +65,15 @@ class Solution {
         int len = str.length();
         for (int i = 0; i < len; ++i) {
             if (str.charAt(i) == ' ') {
-                str.append("  ");//后面追加，增加长度
+                str.append("  ");//后面追加两个空格，增加长度
             }
         }
 
-        int i = len - 1, j = str.length() - 1;
+        int i = len - 1, j = str.length() - 1;//i是原来的长度，j是新的长度
         for (; i >= 0; --i) {
-            char ch = str.charAt(i);
+            char ch = str.charAt(i);//i指向最后字符开始判断
             if (ch == ' ') {
-                str.setCharAt(j--, '0');//i指向最后字符，j在最后往前进行更新
+                str.setCharAt(j--, '0');//j从新的长度空间最后往前进行更新替换，也不会覆盖原来的字符因为最后是空格" "
                 str.setCharAt(j--, '2');
                 str.setCharAt(j--, '%');
             } else {

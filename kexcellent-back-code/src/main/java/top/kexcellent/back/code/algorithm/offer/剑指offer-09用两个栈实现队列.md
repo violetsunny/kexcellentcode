@@ -56,7 +56,7 @@ class MyQueue {
 
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        int t = peek();
+        int t = peek();//交换放到s2中后，将s2反过来的数弹出
         s2.pop();
         return t;
     }
@@ -64,7 +64,7 @@ class MyQueue {
     /** Get the front element. */
     public int peek() {
         if (s2.isEmpty()) {
-            while (!s1.isEmpty()) {
+            while (!s1.isEmpty()) {//s1 s2交换
                 s2.push(s1.pop());
             }
         }
@@ -125,7 +125,7 @@ class MyStack {
 
     /** Push element x onto stack. */
     public void push(int x) {
-        if (empty() || q2.isEmpty()) {
+        if (empty() || q2.isEmpty()) {//q2不为空放q2,q2为空放q1
             q1.offer(x);
         } else {
             q2.offer(x);
@@ -135,13 +135,13 @@ class MyStack {
     /** Removes the element on top of the stack and returns that element. */
     public int pop() {
         if (q1.isEmpty()) {
-            while (q2.size() > 1) {
+            while (q2.size() > 1) {//q2放q1，大于1停止可以取q2最后一个
                 q1.offer(q2.poll());
             }
             return q2.poll();
         }
 
-        while (q1.size() > 1) {
+        while (q1.size() > 1) {//q1放q2，大于1停止可以取q1最后一个
             q2.offer(q1.poll());
         }
         return q1.poll();
@@ -149,9 +149,9 @@ class MyStack {
 
     /** Get the top element. */
     public int top() {
-        int val = pop();
-        push(val);
-        return  val;
+        int val = pop();//取出最后一个并删除
+        push(val);//最后一个重新放入
+        return val;
     }
 
     /** Returns whether the stack is empty. */
