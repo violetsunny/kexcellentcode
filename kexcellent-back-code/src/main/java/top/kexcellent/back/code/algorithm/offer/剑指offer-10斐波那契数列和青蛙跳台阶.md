@@ -45,7 +45,7 @@ class Solution {
         if (n < 2) {
             return n;
         }
-        return Fibonacci(n - 1) + Fibonacci(n - 2);
+        return Fibonacci(n - 1) + Fibonacci(n - 2);//大量重复计算，会超时
     }
 }
 ```
@@ -70,8 +70,8 @@ class Solution {
 
         int a = 1, b = 1;
         for (int i = 2; i < n; ++i) {
-            b = a + b;
-            a = b - a;
+            b = a + b;//b最新位置
+            a = b - a;//a为上次位置
         }
         return b;
     }
@@ -257,7 +257,7 @@ class Solution {
         if (target < 3) {
             return target;
         }
-        int a = 1, b = 2;
+        int a = 1, b = 2;//有一种或两种
         for (int i = 3; i <= target; ++i) {
             b = a + b;
             a = b - a;
