@@ -14,7 +14,7 @@ package top.kexcellent.back.code.algorithm;
  */
 public class TrieTree {
     //记录该字母的下一位所有可能的字母坐标
-    private TrieTree[] children;
+    private TrieTree[] children;//都是小写可以这样，如果有其他字符可以使用Map<Character,TrieTree>
     //该字母是否为最后一个字母
     private boolean isEnd;
     public TrieTree() {
