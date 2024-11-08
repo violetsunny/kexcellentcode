@@ -1,6 +1,4 @@
-## 5 替换空格
-
-来源：[AcWing](https://www.acwing.com/problem/content/17/)
+# [05. 替换空格](https://leetcode.cn/problems/ti-huan-kong-ge-lcof/)
 
 ### 题目描述
 

@@ -1,6 +1,5 @@
-## 32.1 不分行从上往下打印二叉树
+## [32 - I. 从上到下打印二叉树](https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -59,9 +58,8 @@ public class Solution {
 }
 ```
 
-## 32.2 分行从上往下打印二叉树
+## [32 - II. 从上到下打印二叉树 II](https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -125,9 +123,8 @@ public class Solution {
 }
 ```
 
-## 32.3 之字形打印二叉树
+## [32 - III. 从上到下打印二叉树 III](https://leetcode.cn/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

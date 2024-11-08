@@ -1,6 +1,4 @@
-## 16 数值的整数次方
-
-来源：[AcWing](https://www.acwing.com/problem/content/26/)
+## [16. 数值的整数次方](https://leetcode.cn/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/)
 
 ### 题目描述
 

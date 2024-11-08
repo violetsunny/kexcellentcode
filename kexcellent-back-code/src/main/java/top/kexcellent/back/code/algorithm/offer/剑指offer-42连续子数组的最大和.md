@@ -1,6 +1,4 @@
-## 42 连续子数组的最大和
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [42. 连续子数组的最大和](https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/)
 
 ### 题目描述
 

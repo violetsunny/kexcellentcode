@@ -1,6 +1,4 @@
-## 4 二维数组中的查找
-
-来源：[AcWing](https://www.acwing.com/problem/content/16/)
+## [4.二维数组中的查找](https://leetcode.cn/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)
 
 ### 题目描述
 

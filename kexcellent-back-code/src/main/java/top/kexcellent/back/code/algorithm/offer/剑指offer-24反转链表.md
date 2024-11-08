@@ -1,6 +1,4 @@
-## 24 反转链表
-
-来源：[AcWing](https://www.acwing.com/problem/content/33/)
+## [24. 反转链表](https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/)
 
 ### 题目描述
 

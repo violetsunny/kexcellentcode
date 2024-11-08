@@ -1,6 +1,4 @@
-## 13 机器人的运动范围
-
-来源：[AcWing](https://www.acwing.com/problem/content/22/)
+## [13. 机器人的运动范围](https://leetcode.cn/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/)
 
 ### 题目描述
 

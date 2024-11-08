@@ -1,6 +1,4 @@
-## 11 旋转数组的最小数字
-
-来源：[AcWing](https://www.acwing.com/problem/content/20/)
+## [11. 旋转数组的最小数字](https://leetcode.cn/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
 
 ### 题目描述
 

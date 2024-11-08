@@ -1,6 +1,4 @@
-## 22 链表中倒数第 k 个节点
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [22. 链表中倒数第 k 个节点](https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 
 ### 题目描述
 

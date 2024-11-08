@@ -1,6 +1,5 @@
-## 40 最小的 k 个数
+## [40. 最小的 k 个数](https://leetcode.cn/problems/zui-xiao-de-kge-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

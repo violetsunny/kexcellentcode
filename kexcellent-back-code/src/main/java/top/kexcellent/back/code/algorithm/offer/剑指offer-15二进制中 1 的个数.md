@@ -1,6 +1,5 @@
-## 15 二进制中 1 的个数
+## [15. 二进制中 1 的个数](https://leetcode.cn/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/25/)
 
 ### 题目描述
 

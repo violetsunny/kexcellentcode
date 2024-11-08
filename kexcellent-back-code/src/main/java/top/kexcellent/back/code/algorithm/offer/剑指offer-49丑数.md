@@ -6,7 +6,7 @@ edit_url: https://github.com/doocs/leetcode/edit/main/lcof/%E9%9D%A2%E8%AF%95%E9
 
 <!-- problem:start -->
 
-# [面试题 49. 丑数](https://leetcode.cn/problems/chou-shu-lcof/)
+# [丑数](https://leetcode.cn/problems/chou-shu-lcof/)
 
 ## 题目描述
 

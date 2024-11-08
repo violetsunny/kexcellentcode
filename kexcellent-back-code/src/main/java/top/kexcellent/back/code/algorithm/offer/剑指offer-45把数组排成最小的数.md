@@ -1,6 +1,4 @@
-## 45 把数组排成最小的数
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [45. 把数组排成最小的数](https://leetcode.cn/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)
 
 ### 题目描述
 

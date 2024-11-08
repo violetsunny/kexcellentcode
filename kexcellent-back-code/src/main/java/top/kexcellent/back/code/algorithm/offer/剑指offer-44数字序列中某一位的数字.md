@@ -1,6 +1,4 @@
-## 44 数字序列中某一位的数字
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [44. 数字序列中某一位的数字](https://leetcode.cn/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/)
 
 ### 题目描述
 

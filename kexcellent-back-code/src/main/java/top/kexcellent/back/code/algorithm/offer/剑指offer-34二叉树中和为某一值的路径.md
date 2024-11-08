@@ -1,6 +1,5 @@
-## 34 二叉树中和为某一值的路径
+## [34. 二叉树中和为某一值的路径](https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

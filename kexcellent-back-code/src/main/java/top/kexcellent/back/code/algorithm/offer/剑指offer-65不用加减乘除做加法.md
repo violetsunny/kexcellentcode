@@ -1,6 +1,5 @@
-## 65 不用加减乘除做加法
+## [65. 不用加减乘除做加法](https://leetcode.cn/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

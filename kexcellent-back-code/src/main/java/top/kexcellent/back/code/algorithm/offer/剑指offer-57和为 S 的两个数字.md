@@ -1,6 +1,5 @@
-## 57.1 和为 S 的两个数字
+## [57. 和为 s 的两个数字](https://leetcode.cn/problems/he-wei-sde-liang-ge-shu-zi-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -51,9 +50,8 @@ class Solution {
 }
 ```
 
-## 57.2 和为 S 的连续正数序列
+## [57 - II. 和为 s 的连续正数序列](https://leetcode.cn/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

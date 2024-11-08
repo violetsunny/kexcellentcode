@@ -1,6 +1,4 @@
-## 12 矩阵中的路径
-
-来源：[AcWing](https://www.acwing.com/problem/content/21/)
+## [12. 矩阵中的路径](https://leetcode.cn/problems/ju-zhen-zhong-de-lu-jing-lcof/)
 
 ### 题目描述
 

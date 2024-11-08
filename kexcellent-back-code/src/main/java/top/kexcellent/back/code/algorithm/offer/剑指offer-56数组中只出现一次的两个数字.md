@@ -1,6 +1,5 @@
-## 56.1 数组中只出现一次的两个数字
+## [56 - I. 数组中数字出现的次数](https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -74,9 +73,8 @@ class Solution {
 }
 ```
 
-## 56.2 数组中唯一只出现一次的数字
+## [56 - II. 数组中数字出现的次数 II](https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

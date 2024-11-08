@@ -1,7 +1,5 @@
 ## 8 二叉树的下一个节点
 
-来源：[AcWing](https://www.acwing.com/problem/content/31/)
-
 ### 题目描述
 
 给定一棵二叉树的其中一个节点，请找出中序遍历序列的下一个节点。

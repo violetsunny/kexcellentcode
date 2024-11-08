@@ -1,6 +1,4 @@
-## 3.1 找出数组中重复的数
-
-来源：[AcWing](https://www.acwing.com/problem/content/14/)
+## [3.1 找出数组中重复的数](https://leetcode.cn/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
 
 ### 题目描述
 
@@ -71,8 +69,6 @@ class Solution {
 ```
 
 ## 3.2 不修改数组找出重复的数字
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

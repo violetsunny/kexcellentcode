@@ -1,6 +1,4 @@
-## 10.1 斐波那契数列
-
-来源：[AcWing](https://www.acwing.com/problem/content/19/)
+## [10- I. 斐波那契数列](https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof/)
 
 ### 题目描述
 
@@ -78,9 +76,7 @@ class Solution {
 }
 ```
 
-## 10.2 跳台阶
-
-来源：[NowCoder](https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&tqId=11161&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+## [0- II. 青蛙跳台阶问题](https://leetcode.cn/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/)
 
 ### 题目描述
 
@@ -118,8 +114,6 @@ class Solution {
 ```
 
 ## 10.3 变态跳台阶
-
-来源：[NowCoder](https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ### 题目描述
 
@@ -170,8 +164,6 @@ class Solution {
 }
 ```
 
-**注意**，这一解法已同步贡献给开源仓库 [CS-Notes](https://github.com/CyC2018/CS-Notes/pull/496)。
-
 #### 解法二：动态规划
 
 每当计算 res[i]，把前面所有结果累加起来。
@@ -202,8 +194,6 @@ class Solution {
 ```
 
 ## 10.4 矩形覆盖
-
-来源：[NowCoder](https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking)
 
 ### 题目描述
 

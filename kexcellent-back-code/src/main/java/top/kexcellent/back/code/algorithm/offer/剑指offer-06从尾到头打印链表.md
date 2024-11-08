@@ -1,6 +1,4 @@
-## 6 从尾到头打印链表
-
-来源：[AcWing](https://www.acwing.com/problem/content/18/)
+# [06. 从尾到头打印链表](https://leetcode.cn/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 ### 题目描述
 

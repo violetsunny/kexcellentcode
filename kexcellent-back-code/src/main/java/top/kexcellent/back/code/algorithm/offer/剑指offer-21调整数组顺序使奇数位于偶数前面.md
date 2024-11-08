@@ -1,6 +1,4 @@
-## 21 调整数组顺序使奇数位于偶数前面
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [21. 调整数组顺序使奇数位于偶数前面](https://leetcode.cn/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
 
 ### 题目描述
 

@@ -1,6 +1,5 @@
-## 30 包含 min 函数的栈
+## [30. 包含 min 函数的栈](https://leetcode.cn/problems/bao-han-minhan-shu-de-zhan-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/90/)
 
 ### 题目描述
 

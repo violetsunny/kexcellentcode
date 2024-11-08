@@ -1,6 +1,4 @@
-## 25 合并两个排序的链表
-
-来源：[AcWing](https://www.acwing.com/problem/content/34/)
+## [25. 合并两个排序的链表](https://leetcode.cn/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/)
 
 ### 题目描述
 

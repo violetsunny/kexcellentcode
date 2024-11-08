@@ -1,6 +1,4 @@
-## 55.1 二叉树的深度
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [55 - I. 二叉树的深度](https://leetcode.cn/problems/er-cha-shu-de-shen-du-lcof/)
 
 ### 题目描述
 
@@ -58,9 +56,8 @@ class Solution {
 1. 功能测试（输入普通的二叉树；二叉树中所有节点都没有左/右子树）；
 2. 特殊输入测试（二叉树只有一个节点；二叉树的头节点为空指针）。
 
-## 55.2 平衡二叉树
+## [55 - II. 平衡二叉树](https://leetcode.cn/problems/ping-heng-er-cha-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

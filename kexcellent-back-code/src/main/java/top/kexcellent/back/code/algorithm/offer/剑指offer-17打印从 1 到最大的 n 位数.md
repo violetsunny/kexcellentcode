@@ -1,6 +1,4 @@
-## 17 打印从 1 到最大的 n 位数
-
-来源：无
+## [17. 打印从 1 到最大的 n 位数](https://leetcode.cn/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/)
 
 ### 题目描述
 

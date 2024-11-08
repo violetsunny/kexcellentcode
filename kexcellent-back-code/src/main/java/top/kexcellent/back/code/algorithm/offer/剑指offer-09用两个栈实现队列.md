@@ -1,6 +1,4 @@
-## 9.1 用两个栈实现队列
-
-来源：[AcWing](https://www.acwing.com/problem/content/36/)
+## [09.1 用两个栈实现队列](https://leetcode.cn/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
 
 ### 题目描述
 

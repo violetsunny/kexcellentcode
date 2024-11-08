@@ -1,6 +1,4 @@
-## 27 二叉树的镜像
-
-来源：[AcWing](https://www.acwing.com/problem/content/37/)
+## [27. 二叉树的镜像](https://leetcode.cn/problems/er-cha-shu-de-jing-xiang-lcof/)
 
 ### 题目描述
 

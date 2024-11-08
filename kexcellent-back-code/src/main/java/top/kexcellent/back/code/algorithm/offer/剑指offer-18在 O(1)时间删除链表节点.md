@@ -1,6 +1,4 @@
-## 18.1 在 O(1)时间删除链表节点
-
-来源：[AcWing](https://www.acwing.com/problem/content/85/)
+## [18.1 在 O(1)时间删除链表节点](https://leetcode.cn/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
 
 ### 题目描述
 

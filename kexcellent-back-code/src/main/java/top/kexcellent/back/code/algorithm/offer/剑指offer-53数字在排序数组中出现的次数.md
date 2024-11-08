@@ -1,6 +1,5 @@
-## 53.1 数字在排序数组中出现的次数
+## [53 - I. 在排序数组中查找数字 I](https://leetcode.cn/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -91,9 +90,8 @@ class Solution {
 }
 ```
 
-## 53.2 0 到 n-1 中缺失的数字
+## [53 - II. 0 ～ n-1 中缺失的数字](https://leetcode.cn/problems/que-shi-de-shu-zi-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 
@@ -151,7 +149,6 @@ class Solution {
 
 ## 53.3 数组中数值和下标相等的元素
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

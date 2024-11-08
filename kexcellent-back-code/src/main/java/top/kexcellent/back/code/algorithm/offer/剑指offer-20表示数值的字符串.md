@@ -1,6 +1,5 @@
-## 20 表示数值的字符串
+## [20. 表示数值的字符串](https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/29/)
 
 ### 题目描述
 

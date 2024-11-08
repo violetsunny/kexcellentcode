@@ -163,7 +163,7 @@ class Queen8 {
 }
 ```
 
-# [N 皇后 II](https://leetcode.cn/problems/n-queens-ii)
+# [N 皇后 II](https://leetcode.cn/problems/n-queens-ii/)
 
 ## 题目描述
 

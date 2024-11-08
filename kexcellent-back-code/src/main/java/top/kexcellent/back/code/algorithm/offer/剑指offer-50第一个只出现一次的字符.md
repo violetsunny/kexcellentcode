@@ -6,7 +6,7 @@ edit_url: https://github.com/doocs/leetcode/edit/main/lcof/%E9%9D%A2%E8%AF%95%E9
 
 <!-- problem:start -->
 
-# [面试题 50. 第一个只出现一次的字符](https://leetcode.cn/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/)
+# [第一个只出现一次的字符](https://leetcode.cn/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/)
 
 ## 题目描述
 
@@ -75,7 +75,7 @@ class Solution {
 <!-- problem:end -->
 
 
-# 有效的字母异位词
+# [有效的字母异位词](https://leetcode.cn/problems/valid-anagram/description/)
 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的 字母异位词。
 
 - 示例 1:

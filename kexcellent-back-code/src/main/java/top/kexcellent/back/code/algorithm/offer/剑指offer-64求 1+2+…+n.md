@@ -1,6 +1,5 @@
-## 64 求 1+2+…+n
+## [64. 求 1+2+…+n](https://leetcode.cn/problems/qiu-12n-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
 
 ### 题目描述
 

@@ -1,6 +1,5 @@
-## 28 对称的二叉树
+## [28. 对称的二叉树](https://leetcode.cn/problems/dui-cheng-de-er-cha-shu-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/38/)
 
 ### 题目描述
 

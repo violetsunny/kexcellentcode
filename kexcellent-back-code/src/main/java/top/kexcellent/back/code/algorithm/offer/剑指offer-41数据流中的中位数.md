@@ -1,6 +1,4 @@
-## 41 数据流中的中位数
-
-来源：[AcWing](https://www.acwing.com/problem/content/15/)
+## [41. 数据流中的中位数](https://leetcode.cn/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/)
 
 ### 题目描述
 

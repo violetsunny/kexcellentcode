@@ -1,6 +1,5 @@
-## 26 树的子结构
+## [26. 树的子结构](https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/)
 
-来源：[AcWing](https://www.acwing.com/problem/content/35/)
 
 ### 题目描述
 
