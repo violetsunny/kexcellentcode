@@ -103,12 +103,34 @@ class Solution {
         return nums[end];
     }
 
-    private int findMin(int[] nums, int start, int end) {
-        int min = Integer.MAX_VALUE;
-        for (int i = start; i < end; ++i) {
-            min = Math.min(min, nums[i]);
+//    private int findMin(int[] nums, int start, int end) {
+//        int min = Integer.MAX_VALUE;
+//        for (int i = start; i < end; ++i) {
+//            min = Math.min(min, nums[i]);
+//        }
+//        return min;
+//    }
+}
+```
+相似写法
+```java
+class Solution {
+    public int minArray(int[] numbers) {
+        int l = 0, r = numbers.length - 1;
+        while (l < r) {
+            if (numbers[l] < numbers[r]) {//l r内单调递增，就可以跳出。
+                break;
+            }
+            int m = (l + r) >>> 1;
+            if (numbers[m] > numbers[l]) {
+                l = m + 1;
+            } else if (numbers[m] < numbers[l]) {
+                r = m;
+            } else {
+                ++l;
+            }
         }
-        return min;
+        return numbers[l];
     }
 }
 ```
