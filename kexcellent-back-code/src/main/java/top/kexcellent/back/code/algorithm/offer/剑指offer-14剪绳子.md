@@ -95,6 +95,27 @@ class Solution {
         int timesOf2 = (length - timesOf3 * 3) >> 1;//剩下的能有多少个2
         return (int) (Math.pow(2, timesOf2) * Math.pow(3, timesOf3));
     }
+
+    /**
+     * 易懂写法
+     * @param length
+     * @return
+     */
+    public int maxProductAfterCutting(int length) {
+        if (length < 4) {
+            return length - 1;
+        }
+
+        int timesOf3 = length / 3;//能有多少个3
+        int mod = length % 3;
+        if(mod == 0){
+            return (int)Math.pow(3, timesOf3);
+        } else if(mod == 1){
+            return (int)Math.pow(3, timesOf3 - 1) * 4;
+        } else {
+            return (int)Math.pow(3, timesOf3) * 2;
+        }
+    }
 }
 ```
 
@@ -155,7 +176,7 @@ class Solution {
         if (n % 3 == 0) {
             return qpow(3, n / 3);
         }
-        if (n % 3 == 1) {
+        if (n % 3 == 1) {//结果可能超过
             return (int) (4L * qpow(3, n / 3 - 1) % mod);
         }
         return 2 * qpow(3, n / 3) % mod;
