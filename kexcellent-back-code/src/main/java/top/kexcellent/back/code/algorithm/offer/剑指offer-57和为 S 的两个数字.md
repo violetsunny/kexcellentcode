@@ -97,6 +97,7 @@ class Solution {
             if (curSum == sum) {
                 res.add(getList(p, q));
             }
+            //时间窗口方式进行移动
             while (curSum > sum && p < mid) {
                 curSum -= p;
                 ++p;

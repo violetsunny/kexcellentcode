@@ -67,6 +67,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ *       []
+ *  [] [] [] [] [] ... 26
+ * [][][].. [][][]..  26*26
+ */
 class TrieTree {//前缀树
     TrieTree[] children;//都是小写可以这样，如果有其他字符可以使用Map<Character,TrieTree>
     boolean isEnd;
