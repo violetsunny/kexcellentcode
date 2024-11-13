@@ -65,8 +65,41 @@ public class BucketSort {
     }
 
     public static void main(String[] args) {
-        double[] arr = {0.42, 0.32, 0.33, 0.52, 0.37, 0.47, 0.51, 1.3, 1};
+//        double[] arr = {0.42, 0.32, 0.33, 0.52, 0.37, 0.47, 0.51, 1.3, 1};
+        int[] arr = {170, 45, 75, 90, 802, 24, 2, 66, 3, 2, 0, 1, 992, 9999};
         bucketSort(arr);
         System.out.println("Sorted array: " + Arrays.toString(arr));
+    }
+
+    /**
+     * 如果int的桶排序就比较简单，但是占空间比较大
+     * @param arr
+     */
+    public static void bucketSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        int max = arr[0];
+        int min = arr[0];
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+            if (num < min) {
+                min = num;
+            }
+        }
+
+        int[] buckets = new int[max-min+1];
+        for (int j : arr) {
+            buckets[j]++;
+        }
+        int index = 0;
+        for (int i = min; i <= max; i++) {
+            while (buckets[i] > 0) {
+                arr[index++] = i;
+                buckets[i]--;
+            }
+        }
     }
 }
