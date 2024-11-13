@@ -12,52 +12,55 @@ import java.util.Arrays;
  * @version $Id: RadixSort, v 0.1 2024/10/16 下午3:05 kanglele Exp $
  */
 public class RadixSort {
-    // 获取数组中最大数的位数
-    private static int getMaxDigits(int[] arr) {
-        int maxValue = Arrays.stream(arr).max().getAsInt();
-        return Integer.toString(maxValue).length();
-    }
-
-    // 获取单个数字的某一位（从0开始）
-    private static int getDigit(int number, int radix, int index) {
-        return (number / (int) Math.pow(radix, index)) % radix;
-    }
-
-    // 基数排序
     public static void radixSort(int[] arr) {
-        final int RADIX = 10; // 基数为10
-        int[] tempArray = new int[arr.length];
-        int maxDigits = getMaxDigits(arr);
+        if (arr == null || arr.length == 0) {
+            return;
+        }
 
-        for (int index = 0; index < maxDigits; index++) {
-            // 对每个位进行计数排序
-            countingSortByDigit(arr, tempArray, index, RADIX);
-            // 将临时数组复制回原数组
-            System.arraycopy(tempArray, 0, arr, 0, tempArray.length);
+        // 找到数组中的最大值，以确定最大的位数
+        int max = getMax(arr);
+
+        // 对每一位进行排序，从最低位（个位）开始
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countSort(arr, exp);
         }
     }
 
-    // 计数排序（根据某一位）
-    private static void countingSortByDigit(int[] arr, int[] output, int index, int radix) {
-        int[] count = new int[radix];
-        int[] tempArray = new int[arr.length];
+    private static int getMax(int[] arr) {
+        int max = arr[0];
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
 
-        for (int i = 0; i < arr.length; i++) {
-            int digit = getDigit(arr[i], radix, index);
+    private static void countSort(int[] arr, int exp) {
+        int n = arr.length;
+        int[] output = new int[n];
+        int[] count = new int[10];
+
+        // 统计每个桶（对应每个数字0-9）中的元素个数
+        for (int i = 0; i < n; i++) {
+            int digit = (arr[i] / exp) % 10;
             count[digit]++;
         }
 
-        for (int i = 1; i < radix; i++) {
+        // 计算每个桶的累积计数，用于确定元素在输出数组中的位置
+        for (int i = 1; i < 10; i++) {
             count[i] += count[i - 1];
         }
 
-        for (int i = arr.length - 1; i >= 0; i--) {
-            int digit = getDigit(arr[i], radix, index);
-            tempArray[count[digit] - 1] = arr[i];
+        // 将元素按照当前位的数字放入对应的桶中，并更新输出数组
+        for (int i = n - 1; i >= 0; i--) {
+            int digit = (arr[i] / exp) % 10;
+            output[count[digit] - 1] = arr[i];
             count[digit]--;
         }
 
-        System.arraycopy(tempArray, 0, output, 0, tempArray.length);
+        // 将排序好的结果复制回原数组
+        System.arraycopy(output, 0, arr, 0, n);
     }
 
     public static void main(String[] args) {

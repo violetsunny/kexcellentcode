@@ -56,7 +56,7 @@ class Solution {
 }
 ```
 ### 解法二
-移动窗口：l,r r右移动，如果有重复字符l右移动
+滑动窗口：l,r r右移动，如果有重复字符l右移动
 ```java
 class Solution {
     public int lengthOfLongestSubstring(String s) {
