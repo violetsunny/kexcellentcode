@@ -11,52 +11,59 @@ package top.kexcellent.back.code.algorithm.sort;
  */
 public class MaxHeapSort {
 
-    // 堆排序
+    // 对数组进行最大堆排序
     public static void maxHeapSort(int[] arr) {
-        buildMaxHeap(arr);
         int n = arr.length;
+
+        // 构建最大堆
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+
+        // 逐个将堆顶元素与末尾元素交换，并重新调整堆
         for (int i = n - 1; i > 0; i--) {
-            swap(arr, 0, i);
-            heapify(arr, n - i, 0);
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            // 对交换后的堆进行调整，使其满足最大堆性质
+            heapify(arr, i, 0);
         }
     }
 
-    // 构建大顶堆
-    public static void buildMaxHeap(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n; i++) {
-            int current = i;
-            while (current > 0 && arr[current] > arr[(current - 1) / 2]) {
-                swap(arr, current, (current - 1) / 2);
-                current = (current - 1) / 2;
-            }
-        }
-    }
-
-    // 用于交换数组中的两个元素
-    private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
-    // 用于堆化数组的一部分
+    // 调整堆以满足最大堆性质
     private static void heapify(int[] arr, int n, int i) {
         int largest = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
 
-        if (left < n && arr[left] > arr[largest]) {
-            largest = left;
+        // 如果左子节点存在且大于当前最大节点，则更新最大节点为左子节点
+        if (l < n && arr[l] > arr[largest]) {
+            largest = l;
         }
 
-        if (right < n && arr[right] > arr[largest]) {
-            largest = right;
+        // 如果右子节点存在且大于当前最大节点（可能是左子节点更新后的），则更新最大节点为右子节点
+        if (r < n && arr[r] > arr[largest]) {
+            largest = r;
         }
 
-        if (largest != i) {
-            swap(arr, i, largest);
+        // 如果最大节点不是当前节点，则交换它们，并继续调整子树
+        if (largest!= i) {
+            int temp = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = temp;
+
+            // 递归调整交换后的子树，使其满足最大堆性质
             heapify(arr, n, largest);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 34, 5, 2, 38, 45, 6, 23, 4, 67, 3, 8, 56};
+        maxHeapSort(arr);
+        System.out.println("Sorted array: ");
+        for (int i : arr) {
+            System.out.print(i + " ");
         }
     }
 }
