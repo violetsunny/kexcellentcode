@@ -66,13 +66,14 @@ public class BucketSort {
 
     public static void main(String[] args) {
 //        double[] arr = {0.42, 0.32, 0.33, 0.52, 0.37, 0.47, 0.51, 1.3, 1};
-        int[] arr = {170, 45, 75, 90, 802, 24, 2, 66, 3, 2, 0, 1, 992, 9999};
+        int[] arr = {170, 45, 75, 90, 802, 24, -1, -2, -2, 2, 66, 3, 2, 0, 1, 992, 9999};
         bucketSort(arr);
         System.out.println("Sorted array: " + Arrays.toString(arr));
     }
 
     /**
-     * 如果int的桶排序就比较简单，但是占空间比较大
+     * 如果int的桶排序就比较简单，但是占空间比较大.可以用max - min来缩小空间
+     *
      * @param arr
      */
     public static void bucketSort(int[] arr) {
@@ -90,15 +91,15 @@ public class BucketSort {
             }
         }
 
-        int[] buckets = new int[max-min+1];
-        for (int j : arr) {
-            buckets[j]++;
+        int[] buckets = new int[max - min + 1];//max - min缩小空间
+        for (int i : arr) {
+            buckets[i-min]++;//减去min，防止负数，才是真正的位置
         }
         int index = 0;
         for (int i = min; i <= max; i++) {
-            while (buckets[i] > 0) {
+            while (buckets[i-min] > 0) {
                 arr[index++] = i;
-                buckets[i]--;
+                buckets[i-min]--;
             }
         }
     }
