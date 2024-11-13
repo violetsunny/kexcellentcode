@@ -95,3 +95,32 @@ class Solution {
     }
 }
 ```
+其他写法
+```java
+class Solution {
+
+    /**
+     * 计算数值的整数次方
+     *
+     * @param base 底数
+     * @param exponent 指数
+     * @return 数值的整数次方
+     */
+    public double myPow(double base, int exponent) {
+        double res = 1;
+        long y = exponent;
+        if(y<0){
+            y = -y;
+            base = 1/base;
+        }
+        while(y!=0){
+            if(y%2==1){
+                res = res*base;
+            }
+            base = base * base;
+            y = y / 2;
+        }
+        return res;
+    }
+}
+```

@@ -8,7 +8,22 @@
 
 此题需要注意 n 位数构成的数字可能超出最大的 int 或者 long long 能表示的范围。因此，采用字符数组来存储数字。
 
-#### 解法一
+### 解法三：pow
+小数直接用这个
+````java
+class Solution {
+    public int[] countNumbers(int cnt) {
+        int n = (int)Math.pow(10,cnt);
+        int[] res = new int[n-1];
+        for(int i=1;i<n;i++){
+            res[i-1]=i;
+        }
+        return res;
+    }
+}
+````
+
+### 解法一
 
 - 对字符数组表示的数进行递增操作；
 - 输出数字（0 开头的需要把 0 去除）。
@@ -73,10 +88,10 @@ class Solution {
 }
 ```
 
-#### 解法二
+### 解法二
 
 利用递归全排列，设置每一位，设置完之后，打印出来。
-
+数据大用这个，效率更好
 ```java
 class Solution {
 
