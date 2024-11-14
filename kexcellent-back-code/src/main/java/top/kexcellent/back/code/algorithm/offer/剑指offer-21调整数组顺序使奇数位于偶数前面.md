@@ -89,45 +89,29 @@ public class Solution {
 ```
 
 #### 解法三
-双指针交换 快排。超时，要优化
+双指针交换
 ```java
 import java.util.Arrays;
 
 public class Solution {
     
     public void reOrderArray(int[] array) {
-        qsort(array,0,array.length-1);
+        if(array==null||array.length==0){
+            return;
+        }
+        int left = 0;
+        int right = array.length-1;
+        while(left<right){
+            while(left<right&&array[left]%2!=0){
+                left++;
+            }
+            while(left<right&&array[right]%2!=1){
+                right--;
+            }
+            int temp = array[right];
+            array[right] = array[left];
+            array[left] = temp;
+        }
     }
-
-  private void qsort(int[] arr, int low, int high) {
-    if (low >= high) {
-      return;
-    }
-    int begin = low;
-    int end = high;
-    int position = position(arr,begin,end);
-    qsort(arr, begin, position-1);
-    qsort(arr, position+1, end);
-  }
-
-  private int position(int[] arr,int low,int high){
-    int baseVal = arr[high];
-    while(low < high){
-      //奇数在前，偶尔在后 low为奇数，baseval为偶数 low在前面
-      while(low<high && (((arr[low]&1)==1 && (baseVal&1)==0) || ((arr[low]&1)==0 && (baseVal&1)==0))){
-        low++;
-      }
-      arr[high] = arr[low];
-      //hign为奇数，baseval为偶数 hign在前面
-      while(low<high && (((arr[high]&1)==0 && (baseVal&1)==1) || ((arr[high]&1)==1 && (baseVal&1)==1))){
-        high--;
-      }
-      arr[low] = arr[high];
-    }
-    //将基准值移到中位
-    arr[low] = baseVal;
-    //返回中间位置
-    return low;
-  }
 }
 ```
