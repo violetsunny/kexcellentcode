@@ -11,36 +11,32 @@ package top.kexcellent.back.code.algorithm.sort;
  */
 public class CountingSort {
     public static void countingSort(int[] arr) {
-        // 找出数组中的最大值，以确定计数数组的大小
-        int max = findMax(arr);
-
-        // 创建计数数组并初始化为0
-        int[] count = new int[max + 1];
-
-        // 计算每个元素的出现次数
-        for (int i = 0; i < arr.length; i++) {
-            count[arr[i]]++;
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        int max = arr[0];//找出最大值
+        int min = arr[0];//找出最小值
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+            if (num < min) {
+                min = num;
+            }
         }
 
-        // 根据计数数组，将元素放到正确的位置
+        int[] counts = new int[max - min + 1];//max - min缩小空间
+        //有数加1
+        for (int i : arr) {
+            counts[i-min]++;//减去min，防止负数，才是真正的位置
+        }
         int index = 0;
-        for (int i = 0; i <= max; i++) {
-            while (count[i] > 0) {
+        for (int i = min; i <= max; i++) {
+            while (counts[i-min] > 0) {
                 arr[index++] = i;
-                count[i]--;
+                counts[i-min]--;
             }
         }
-    }
-
-    // 找出数组中的最大值
-    private static int findMax(int[] arr) {
-        int max = arr[0];
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-            }
-        }
-        return max;
     }
 
     public static void main(String[] args) {
