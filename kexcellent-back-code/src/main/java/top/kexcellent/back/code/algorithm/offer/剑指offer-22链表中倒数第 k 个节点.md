@@ -5,8 +5,8 @@
 输入一个链表，输出该链表中倒数第 k 个结点。
 
 ### 解法
-
-pre 指针走 `k-1` 步。之后 cur 指针指向 phead，然后两个指针同时走，直至 pre 指针到达尾结点。
+快慢指针：
+fast 指针走 `k` 步。之后 slow 指针指向 phead，然后两个指针同时走，直至 fast 指针到达尾结点。
 
 > 当用一个指针遍历链表不能解决问题的时候，可以尝试用两个指针来遍历链表。可以让其中一个指针遍历的速度快一些。
 
@@ -34,21 +34,22 @@ public class Solution {
             return null;
         }
 
-        ListNode pre = head;
-        for (int i = 0; i < k - 1; ++i) {
-            if (pre.next != null) {
-                pre = pre.next;
+        ListNode fast = head;
+        ListNode slow = head;
+        for (int i = 0; i < k; ++i) {
+            if (fast != null) {
+                fast = fast.next;
             } else {
                 return null;
             }
         }
 
-        ListNode cur = head;
-        while (pre.next != null) {
-            pre = pre.next;
-            cur = cur.next;
+        
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
         }
-        return cur;
+        return slow;
     }
 }
 ```
