@@ -7,7 +7,7 @@
 
 ### 解法
 
-先将根节点进入队列。
+层序遍历，先将根节点进入队列。
 
 队头元素出队，将值存入 list，判断该元素是否有左/右子树，有的话依次进入队列中。队列为空时结束。
 
@@ -25,9 +25,7 @@ import java.util.Queue;
 
  public TreeNode(int val) {
  this.val = val;
-
  }
-
  }
  */
 public class Solution {
@@ -36,11 +34,12 @@ public class Solution {
      * @param root 二叉树根节点
      * @return 结果list
      */
-    public ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
+    public List<Integer> PrintFromTopToBottom(TreeNode root) {
         ArrayList<Integer> list = new ArrayList<>();
         if (root == null) {
             return list;
         }
+        //层序遍历
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
@@ -73,9 +72,7 @@ public class Solution {
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
-
-/*
+/**
 public class TreeNode {
     int val = 0;
     TreeNode left = null;
@@ -83,9 +80,7 @@ public class TreeNode {
 
     public TreeNode(int val) {
         this.val = val;
-
     }
-
 }
 */
 public class Solution {
@@ -161,9 +156,7 @@ public class Solution {
 ```java
 import java.util.ArrayList;
 import java.util.Stack;
-
-
-/*
+/**
 public class TreeNode {
     int val = 0;
     TreeNode left = null;
@@ -171,9 +164,7 @@ public class TreeNode {
 
     public TreeNode(int val) {
         this.val = val;
-
     }
-
 }
 */
 public class Solution {
@@ -223,3 +214,4 @@ public class Solution {
 
 }
 ```
+ps: 也可以在第二个上面直接用标记sum++，根据sum%2==0,偶数可以LinkedList.addFirst();操作

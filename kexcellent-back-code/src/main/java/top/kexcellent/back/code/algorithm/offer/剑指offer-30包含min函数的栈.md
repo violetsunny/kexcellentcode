@@ -52,7 +52,7 @@ class MinStack {
         if (stack2.isEmpty() || stack2.peek() > x) {
             stack2.push(x);
         } else {
-            stack2.push(stack2.peek());
+            stack2.push(stack2.peek());//为了stack1和stack2数目相等，这样pop就不用判断
         }
     }
 

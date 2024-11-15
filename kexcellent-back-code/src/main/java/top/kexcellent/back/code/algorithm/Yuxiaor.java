@@ -6,6 +6,9 @@ package top.kexcellent.back.code.algorithm;
 
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -91,6 +94,7 @@ public class Yuxiaor {
 //        System.out.println(indexOf(dist,search));
 //        System.out.println("---------------");
         System.out.println(indexOf2(dist,search));
+
     }
 
 //    public static void main(String[] args) {

@@ -96,7 +96,7 @@ class Solution {
                 res[k++] = matrix[i][j];
             }
             r--;//往左一层
-            if (r > l) {
+            if (l > r) {
                 break;
             }
             //右往左，r移动
@@ -112,7 +112,7 @@ class Solution {
                 res[k++] = matrix[i][j];
             }
             l++;//往右一层
-            if (r > l) {
+            if (l > r) {
                 break;
             }
         }

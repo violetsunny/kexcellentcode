@@ -65,6 +65,7 @@ public class Solution {
     }
 }
 ```
+如果压入和弹出相等，那按照push压入就能按照pop弹出。
 ```java
 import java.util.Deque;
 import java.util.ArrayDeque;
