@@ -305,7 +305,7 @@ class Solution {
         int left = matrix[0][0];
         int right = matrix[n - 1][n - 1];
         while (left < right) {
-            int mid = left + ((right - left) >> 1);
+            int mid = left + ((right - left) >> 1);//中点
             if (check(matrix, mid, k, n)) {
                 right = mid;
             } else {
@@ -318,13 +318,13 @@ class Solution {
     public boolean check(int[][] matrix, int mid, int k, int n) {
         int i = n - 1;//从左下角开始查找
         int j = 0;
-        int num = 0;
+        int num = 0;//统计范围内满足的num
         while (i >= 0 && j < n) {
             if (matrix[i][j] <= mid) {
-                num += i + 1;
-                j++;
+                num = num + i + 1;//往右代表前面的I行都满足
+                j++;//往右
             } else {
-                i--;
+                i--;//往上
             }
         }
         return num >= k;
